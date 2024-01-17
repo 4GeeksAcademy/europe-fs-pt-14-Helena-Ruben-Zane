@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, UserData
 from api.utils import  get_hash
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token
@@ -67,3 +67,34 @@ def protected():
 def handle_get_hash():
     to_hash = request.json.get("string")
     return get_hash(to_hash)
+
+@api.route ("/userdata/", methods=["POST"]) 
+@jwt_required()
+def protected():
+
+   data = request.json 
+
+    date = data.get("date", None)
+    time = data.get("time", None)
+    location =data.get("location", None)
+    liters = data.get("liters", None)
+   
+    if "date" not in data or "time" not in data or "location" not in data or "liters" not in data:
+        return jsonify({"error": "All data is required"}), 400
+   
+   current_user_id = get_jwt_identity()  
+   new_data = UserData.UserData(user_id=current_user_id, date=date, time=time, location=location, liters=liters)
+   
+    try:
+        db.session.add(new_data)
+        db.session.commit()
+        token = create_access_token(identity=current_user_id)
+        return jsonify({"token": token}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+    finally:
+        db.session.close()
+
+
+   
