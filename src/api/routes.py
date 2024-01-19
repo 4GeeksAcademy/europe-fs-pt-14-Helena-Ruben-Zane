@@ -53,7 +53,7 @@ def login_user():
     if found_user is None:
         return "email or password incorrect", 400
     
-    token = create_access_token(identity=email)
+    token = create_access_token(identity=found_user.id)
     return jsonify(token=token)
 
 @api.route("/private", methods=["GET"])
@@ -70,26 +70,25 @@ def handle_get_hash():
 
 @api.route ("/userdata/", methods=["POST"]) 
 @jwt_required()
-def protected():
+def handle_userdata():
 
-   data = request.json 
+    data = request.json 
 
-    date = data.get("date", None)
-    time = data.get("time", None)
-    location =data.get("location", None)
+    date_time = data.get("date_time", None)
+    location = data.get("location", None)
     liters = data.get("liters", None)
-   
-    if "date" not in data or "time" not in data or "location" not in data or "liters" not in data:
+
+    arr = ["date_time", "location", "liters"]
+    if any(item not in data for item in arr):
         return jsonify({"error": "All data is required"}), 400
-   
-   current_user_id = get_jwt_identity()  
-   new_data = UserData.UserData(user_id=current_user_id, date=date, time=time, location=location, liters=liters)
-   
+
+    current_user_id = get_jwt_identity()  
+    new_data = UserData(user_id=current_user_id, date_time=date_time, location=location, liters=liters)
+
     try:
         db.session.add(new_data)
         db.session.commit()
-        token = create_access_token(identity=current_user_id)
-        return jsonify({"token": token}), 200
+        return jsonify({"message":"Your data is succesfully updated"}), 200
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
@@ -97,4 +96,3 @@ def protected():
         db.session.close()
 
 
-   

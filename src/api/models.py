@@ -21,19 +21,19 @@ class User(db.Model):
     
 class UserData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime, unique=True, nullable=False)
-    time = db.Column(db.DateTime, unique=True, nullable=False)
-    location = db.Column(db.String, unique=True, nullable=False)
-    liters = db.Column(db.Float, unique=True, nullable=False)
+    user_id = db.Column (db.Integer, db.ForeignKey ('user.id'))
+    date_time = db.Column(db.DateTime, unique=False, nullable=False)
+    location = db.Column(db.String, unique=False, nullable=False)
+    liters = db.Column(db.Float, unique=False, nullable=False)
 
     def __repr__(self):
-        return f'<UserData {self.date} {self.time} {self.location} {self.liters}>'
+        return f'<UserData {self.date_time} {self.location} {self.liters}>'
 
     def serialize(self):
         return {
             "id": self.id,
-            "date": self.date,
-            "time": self.time,
+            "user_id": self.user_id,
+            "date_time": self.date_time,
             "location": self.location,
             "liters": self.liters,
         }
