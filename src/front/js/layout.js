@@ -14,7 +14,7 @@ import { Userdata } from "./pages/userdata";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-
+import { TimeCounter } from "./component/timeCounter";
 //create your first component
 const Layout = () => {
     //the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -31,11 +31,13 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<Login />} path="/login" />
+                        <Route element={<TimeCounter />} path="/timecounter" />
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Userdata />} path="/userdata" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
+                        
                     </Routes>
                     <Footer />
                 </ScrollToTop>

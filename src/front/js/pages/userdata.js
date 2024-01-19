@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 
-
-
 export const Userdata = () => {  
 
   const [userToken, setUserToken] = useState("");
@@ -34,3 +32,5 @@ export const Userdata = () => {
     
   )
 }
+
+
