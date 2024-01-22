@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import Counter from '../component/counter';
 
 export const Userdata = () => {  
 
@@ -26,6 +26,7 @@ export const Userdata = () => {
     <>
     <div className="text-center mt-5">
       {userToken && <p>User loged in!</p>}
+      <Counter /> 
       <button onClick={logout}>Logout</button>
     </div>
     </>
