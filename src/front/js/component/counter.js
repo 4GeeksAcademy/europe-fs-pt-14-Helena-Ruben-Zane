@@ -1,6 +1,33 @@
 import React from "react";
+import { useState } from "react";
+import TimeCounter from "./timeCounter";
 
 const Counter = (props) => {
+    const [seconds, setSeconds] = useState (0); 
+
+    const startTimer = () => {
+        setTime (counter);
+
+        document.querySelector('.start-button').setAttribute("disabled", "true")
+        document.querySelector('.submit-button').removeAttribute("disabled")
+
+            const pauseButton = document.createElement("button")
+            pauseButton.innerText = 'pause'
+                pauseButton.className="pause-button"
+                document.querySelector('.counter-container').appendChild(pauseButton)
+                pauseButton.addEventListener("click", () => {
+                if (pauseButton.innerText === "pause"){
+                    pauseButton.innerText = "resume"
+                } else {
+                    pauseButton.innerText = 'pause'
+                }
+            })
+        }
+
+    
+    const submitTimer = () => {
+
+    }; 
 
     return (
 
@@ -19,12 +46,10 @@ const Counter = (props) => {
 
 
                 <div className="buttons text-light-emphasis fw-lighter">  
-                <button type="button" className="btn btn-info btn-sm me-2" onClick={start}>
+                <button type="button" className="btn btn-info btn-sm me-2" onClick={startTimer}>
                     Start </button>
-                <button type="button" className="btn btn-info btn-sm me-2"onClick={pause}>
-                   Pause </button>
         
-                <button type="button" className="btn btn-info btn-sm me-2" onClick={submit}>
+                <button type="button" className="btn btn-info btn-sm me-2" onClick={submitTimer}>
                    Completed </button>
                  </div>
 
@@ -33,6 +58,5 @@ const Counter = (props) => {
 
     )
 };
-
-export default Counter;
+export default Counter; 
 
