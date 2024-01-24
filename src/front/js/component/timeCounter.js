@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Counter from "./counter";
 
-export const TimeCounter = () => {
+const TimeCounter = () => {
   const [counter, setTime] = useState(0);
 
   useEffect(() => {
@@ -27,5 +27,4 @@ export const TimeCounter = () => {
       />
     </div>
 };
-
-
+export default TimeCounter; 

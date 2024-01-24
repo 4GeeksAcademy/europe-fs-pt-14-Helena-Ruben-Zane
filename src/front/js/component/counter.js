@@ -6,7 +6,7 @@ const Counter = (props) => {
     const [seconds, setSeconds] = useState (0); 
 
     const startTimer = () => {
-        setTime (counter);
+        <TimeCounter />
 
         document.querySelector('.start-button').setAttribute("disabled", "true")
         document.querySelector('.submit-button').removeAttribute("disabled")
@@ -23,6 +23,7 @@ const Counter = (props) => {
                 }
             })
         }
+        
 
     
     const submitTimer = () => {
