@@ -1,14 +1,15 @@
 from flask_sqlalchemy import SQLAlchemy
+import enum
+from sqlalchemy import Enum
 
 db = SQLAlchemy()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_name = db.Column(db.String(120), unique=True, nullable=False)
+    username = db.Column(db.String(120), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
     level = db.Column(db.Integer, default=1)
-
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -16,28 +17,38 @@ class User(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "user_name": self.username,
+            "username": self.username,
             "email": self.email,
             "is_active": self.is_active,
             "level": self.level,
           
         }
+    
+class StatusEnum (enum.Enum):
+    pending = "pending"
+    complete = "completed"
+    invalid = "invalid"
 
 class UserData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column (db.Integer, db.ForeignKey ('user.id'))
-    date_time = db.Column(db.DateTime, unique=False, nullable=False)
-    location = db.Column(db.String, unique=False, nullable=False)
-    liters = db.Column(db.Float, unique=False, nullable=False)
+    start_time = db.Column(db.DateTime, unique=False, nullable=False)
+    finish_time =db.Column(db.DateTime, unique=False, nullable=True)
+    status = db.Column(db.Enum(StatusEnum), unique=False, nullable=False)
+    location = db.Column(db.String, unique=False, nullable=True)
+    liters = db.Column(db.Float, unique=False, nullable=True)
 
     def __repr__(self):
-        return f'<UserData {self.date_time} {self.location} {self.liters}>'
+        return f'<UserData {self.user_id}>'
 
     def serialize(self):
         return {
             "id": self.id,
             "user_id": self.user_id,
-            "date_time": self.date_time,
+            "start_time": self.start_time,
+            "finish_time": self.finish_time,
+            "status": self.status.value, 
             "location": self.location,
             "liters": self.liters,
         }
+

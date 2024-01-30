@@ -121,24 +121,23 @@ def create_payment_intent():
         return jsonify({}), 400
 
 
-@api.route ("/userdata/", methods=["POST"]) 
+@api.route ("/userdata", methods=["POST"]) 
 @jwt_required()
 def handle_userdata():
 
     data = request.json 
-
-    date_time = data.get("date_time", None)
+    
+    start_time = data.get("start_time", None)
+    finish_time = data.get ("finish_time", None)
+    status = data.get ("status", None)
     location = data.get("location", None)
     liters = data.get("liters", None)
 
-    arr = ["date_time", "location", "liters"]
-    if any(item not in data for item in arr):
-        return jsonify({"error": "All data is required"}), 400
 
     current_user_id = get_jwt_identity()  
-    new_data = UserData(user_id=current_user_id, date_time=date_time, location=location, liters=liters)
-
+    
     try:
+        new_data = UserData(user_id=current_user_id, start_time=start_time, finish_time=finish_time or None, status=status if finish_time else "pending", location=location if location else None, liters=liters if liters else None)
         db.session.add(new_data)
         db.session.commit()
         return jsonify({"message":"Your data is succesfully updated"}), 200

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Context } from "../store/appContext";
 
 export const TimeCounter = () => {
   const [timer, setTime] = useState(0)
   const [active, setActive] = useState(false)
   const [buttonText, setButtonText] = useState("Get the collection going")
-
+  const {store, actions} = useContext (Context)
+  const [pending, setPending] = useState (false)
   useEffect(() => {
     let intervalId;
 
@@ -22,11 +24,13 @@ export const TimeCounter = () => {
   const startPause = () => {
     setActive((prevActive) => !prevActive);
     setButtonText((prevText) => (prevText === "Get the collection going" ? "Pause" : "Get the collection going")) 
-    { e = actions.sendTime(timer) }
+    if (!pending) actions.start_time() 
+    setPending (true)
   };
   const submitTime = () => {
     setActive((prevActive) => !prevActive);
-    e = actions.sendTime(timer)
+    actions.finish_time()
+    setPending (false)
   }; 
 
   const hours = Math.floor(timer / 3600);

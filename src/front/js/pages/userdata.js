@@ -8,15 +8,15 @@ export const Userdata = () => {
   const [userToken, setUserToken] = useState("");
   const navigate = useNavigate();
 
-  useEffect (() => {
-      const userToken = localStorage.getItem("userToken");
-      if(!userToken){
-          navigate("/login");
-          return;
-      }
-      setUserToken(userToken)
+  // useEffect (() => {
+  //     const userToken = localStorage.getItem("userToken");
+  //     if(!userToken){
+  //         navigate("/login");
+  //         return;
+  //     }
+  //     setUserToken(userToken)
       
-  })
+  // })
 
   const logout = async () => {
     localStorage.removeItem("userToken");

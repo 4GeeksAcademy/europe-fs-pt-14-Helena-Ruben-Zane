@@ -20,7 +20,7 @@ import { AmountSubmit } from "./component/amountSubmitForm";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { UserInsertData } from "./component/userInsertData";
-import { TimeCounter } from "./component/timeCounter";
+
 
 
 //create your first component
@@ -49,7 +49,6 @@ const Layout = () => {
                         <Route element={<AmountSubmit />} path="/amount" />
 
                         <Route element={<Userdata />} path="/userdata" />
-                        <Route element= {<TimeCounter />} path="/timecounter"/> 
                         <Route element={<UserInsertData />} path="/userinsertdata" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />

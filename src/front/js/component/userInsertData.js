@@ -1,19 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Context } from "../store/appContext";
 
 export const UserInsertData = () => {
-    const [newDateTime, setNewDateTime] = useState('');
+    const [startDateTime, setStartDateTime] = useState('');
+    const [endDateTime, setEndDateTime] = useState('');
     const [newLocation, setNewLocation] = useState({ latitude: '', longitude: '' });
     const [liters, setLiters] = useState('');
+    const {store, actions} = useContext (Context)
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        setNewDateTime([...newDateTime, { label: newDateTime, done: false }]);
-        setNewDateTime("");
+        setStartDateTime([...startDateTime, { label: startDateTime, done: false }]);
+        setStartDateTime(""); 
+        actions.start_time ();
+
+        setEndDateTime ([... endDateTime, { label: endDateTime, done: false }]);
+        setEndDateTime("");
+        actions.finish_time (); 
+
         setNewLocation([...newLocation, { label: newLocation, done: false }]);
         setNewLocation("");
+        actions.set_location ();
         setLiters([...liters, { label: liters, done: false }]);
         setLiters("");
+        actions.set_liters (); 
     };
 
     const handleChange = (e) => {
@@ -21,26 +32,41 @@ export const UserInsertData = () => {
             handleSubmit(e);
         } else {
             setNewDateTime(e.target.value);
+            setNewLocation(e.target.value);
             setLiters(e.target.value);
         }
     };
 
     return (
         <div className="userInsertData container-fluid">
-            <div className="input-group input-group-sm mb-3 ol-sm-10">
+
+            <div className="input-group input-group-sm mb-3 ol-sm-8">
+
                 <input
                     type="datetime-local"
                     id="collecting_time"
                     className="form-control"
-                    placeholder="Date & Time"
                     aria-describedby="button-addon2"
-                    value={newDateTime}
-                    onChange={(e) => setNewDateTime(e.target.value)}
+                    value={startDateTime}
+                    onChange={(e) => setStartDateTime(e.target.value)} 
+                
+                   
                 />
-                <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={handleSubmit}>
+
+
+                <input
+                    type="datetime-local"
+                    id="complete_collecting_time"
+                    className="form-control"
+                    aria-describedby="button-addon2"
+                    value={endDateTime}
+                    onChange={(e) => setEndDateTime(e.target.value)}
+                />
+                <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={handleChange}>
                     Add
                 </button>
             </div>
+
             <div className="input-group input-group-sm mb-3">
                 <input
                     type="text"
@@ -50,10 +76,12 @@ export const UserInsertData = () => {
                     aria-describedby="button-addon2"
                     onChange={(e) => setNewLocation({ ...newLocation, newLocation: e.target.value })}
                 />
-                <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={handleSubmit}>
+                <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={handleChange}>
                     Add
                 </button>
+
             </div>
+
             <div className="input-group input-group-sm mb-3">
 
                 <input
@@ -66,7 +94,7 @@ export const UserInsertData = () => {
                     value={liters}
                     onChange={(e) => setLiters(e.target.value)}
                 />
-                <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={handleSubmit}>
+                <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={handleChange}>
                     Add
                 </button>
             </div>
