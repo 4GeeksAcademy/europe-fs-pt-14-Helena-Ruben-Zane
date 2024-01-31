@@ -1,6 +1,4 @@
 from flask_sqlalchemy import SQLAlchemy
-import enum
-from sqlalchemy import Enum
 
 db = SQLAlchemy()
 
@@ -24,7 +22,7 @@ class User(db.Model):
           
         }
     
-class StatusEnum (enum.Enum):
+class status ():
     pending = "pending"
     complete = "completed"
     invalid = "invalid"
@@ -34,7 +32,7 @@ class UserData(db.Model):
     user_id = db.Column (db.Integer, db.ForeignKey ('user.id'))
     start_time = db.Column(db.DateTime, unique=False, nullable=False)
     finish_time =db.Column(db.DateTime, unique=False, nullable=True)
-    status = db.Column(db.Enum(StatusEnum), unique=False, nullable=False)
+    status = db.Column(db.String(), unique=False, nullable=False)
     location = db.Column(db.String, unique=False, nullable=True)
     liters = db.Column(db.Float, unique=False, nullable=True)
 
