@@ -6,36 +6,39 @@ export const UserInsertData = () => {
     const [endDateTime, setEndDateTime] = useState('');
     const [newLocation, setNewLocation] = useState({ latitude: '', longitude: '' });
     const [liters, setLiters] = useState('');
-    const {store, actions} = useContext (Context)
+    const { store, actions } = useContext(Context)
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         setStartDateTime([...startDateTime, { label: startDateTime, done: false }]);
-        setStartDateTime(""); 
-        actions.start_time ();
+        setStartDateTime("");
+        actions.start_time();
 
-        setEndDateTime ([... endDateTime, { label: endDateTime, done: false }]);
+        setEndDateTime([...endDateTime, { label: endDateTime, done: false }]);
         setEndDateTime("");
-        actions.finish_time (); 
+        actions.finish_time();
 
         setNewLocation([...newLocation, { label: newLocation, done: false }]);
         setNewLocation("");
-        actions.set_location ();
+        actions.set_location();
         setLiters([...liters, { label: liters, done: false }]);
         setLiters("");
-        actions.set_liters (); 
+        actions.set_liters();
     };
+
 
     const handleChange = (e) => {
         if (e.key === "Enter") {
             handleSubmit(e);
         } else {
-            setNewDateTime(e.target.value);
+            setStartDateTime(e.target.value);
+            setEndDateTime(e.target.value);
             setNewLocation(e.target.value);
             setLiters(e.target.value);
         }
     };
+    
 
     return (
         <div className="userInsertData container-fluid">
@@ -48,9 +51,9 @@ export const UserInsertData = () => {
                     className="form-control"
                     aria-describedby="button-addon2"
                     value={startDateTime}
-                    onChange={(e) => setStartDateTime(e.target.value)} 
-                
-                   
+                    onChange={(e) => setStartDateTime(e.target.value)}
+
+
                 />
 
 
