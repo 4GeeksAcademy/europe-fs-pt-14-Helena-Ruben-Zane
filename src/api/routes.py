@@ -125,7 +125,7 @@ def create_payment_intent():
 @jwt_required()
 def handle_userdata():
 
-    data = request.json 
+    data = request.json
     
     start_time = data.get("start_time", None)
     finish_time = data.get ("finish_time", None)
@@ -133,11 +133,12 @@ def handle_userdata():
     location = data.get("location", None)
     liters = data.get("liters", None)
 
+    user_token_info = get_jwt_identity()
+    email = user_token_info["email"] 
+    user= User.query.filter_by(email=email).first()
 
-    current_user_id = get_jwt_identity()  
-    
     try:
-        new_data = UserData(user_id=current_user_id, start_time=start_time, finish_time=finish_time or None, status=status if finish_time else "pending", location=location if location else None, liters=liters if liters else None)
+        new_data = UserData(user_id=user.email, start_time=start_time, finish_time=finish_time or None, status=status if finish_time else "pending", location=location if location else None, liters=liters if liters else None)
         db.session.add(new_data)
         db.session.commit()
         return jsonify({"message":"Your data is succesfully updated"}), 200

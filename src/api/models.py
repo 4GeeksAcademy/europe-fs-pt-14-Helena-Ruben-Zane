@@ -18,8 +18,7 @@ class User(db.Model):
             "username": self.username,
             "email": self.email,
             "is_active": self.is_active,
-            "level": self.level,
-          
+            "level": self.level, 
         }
     
 class status ():
@@ -29,10 +28,10 @@ class status ():
 
 class UserData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column (db.Integer, db.ForeignKey ('user.id'))
+    user_id = db.Column (db.String, db.ForeignKey ('user.id'))
     start_time = db.Column(db.DateTime, unique=False, nullable=False)
     finish_time =db.Column(db.DateTime, unique=False, nullable=True)
-    status = db.Column(db.String(), unique=False, nullable=False)
+    status = db.Column(db.String, unique=False, nullable=False)
     location = db.Column(db.String, unique=False, nullable=True)
     liters = db.Column(db.String, unique=False, nullable=True)
 
