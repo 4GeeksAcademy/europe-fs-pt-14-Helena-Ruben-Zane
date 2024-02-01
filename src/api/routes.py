@@ -138,10 +138,42 @@ def handle_userdata():
     user= User.query.filter_by(email=email).first()
 
     try:
-        new_data = UserData(user_id=user.email, start_time=start_time, finish_time=finish_time or None, status=status if finish_time else "pending", location=location if location else None, liters=liters if liters else None)
+        new_data = UserData(user_id=user.id, start_time=start_time, finish_time=finish_time or None, status=status if finish_time else "pending", location=location if location else None, liters=liters if liters else None)
         db.session.add(new_data)
         db.session.commit()
-        return jsonify({"message":"Your data is succesfully updated"}), 200
+        return jsonify({"message":"Your data is succesfully created", "userdata_id": new_data.id}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+    finally:
+        db.session.close()
+
+@api.route ("/userdata/<int:id>", methods=["PUT"]) 
+@jwt_required()
+def update_userdata(id):
+
+    data = request.json
+    
+    finish_time = data.get ("finish_time", None)
+    location = data.get("location", None)
+    liters = data.get("liters", None)
+
+    user_token_info = get_jwt_identity()
+    email = user_token_info["email"] 
+
+    
+    try:
+        current = UserData.query.get(id)
+        if current : 
+            current.finish_time = finish_time if finish_time else None
+            current.status = "completed"
+            current.location = location if location else None
+            current.liters = liters if liters else None
+            db.session.commit()
+            return jsonify({"message":"Your data is succesfully updated"}), 200
+        else:
+            return jsonify ({"message": "No userdata for this id"}), 404
+        
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500

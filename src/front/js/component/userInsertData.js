@@ -4,7 +4,7 @@ import { Context } from "../store/appContext";
 export const UserInsertData = () => {
     const [startDateTime, setStartDateTime] = useState('');
     const [endDateTime, setEndDateTime] = useState('');
-    const [newLocation, setNewLocation] = useState({ latitude: '', longitude: '' });
+    const [newLocation, setNewLocation] = useState('');
     const [liters, setLiters] = useState('');
     const { store, actions } = useContext(Context)
 
@@ -38,7 +38,18 @@ export const UserInsertData = () => {
             setLiters(e.target.value);
         }
     };
-    
+
+    const handleLocation = (e) => {
+        e.preventDefault()
+        console.log("Porto")
+        actions.set_location(newLocation)
+    }
+
+    const handleLiter = (e) => {
+        e.preventDefault()
+        actions.set_liters(liters)
+    }
+
 
     return (
         <div className="userInsertData container-fluid">
@@ -77,9 +88,9 @@ export const UserInsertData = () => {
                     placeholder="Location"
                     aria-label="Location"
                     aria-describedby="button-addon2"
-                    onChange={(e) => setNewLocation({ ...newLocation, newLocation: e.target.value })}
+                    onChange={(e) => setNewLocation(e.target.value)}
                 />
-                <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={handleChange}>
+                <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={handleLocation}>
                     Add
                 </button>
 
@@ -97,7 +108,7 @@ export const UserInsertData = () => {
                     value={liters}
                     onChange={(e) => setLiters(e.target.value)}
                 />
-                <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={handleChange}>
+                <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={handleLiter}>
                     Add
                 </button>
             </div>

@@ -121,6 +121,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = await response.json();
 					console.log(data);
+					setStore({current:data.userdata_id})
 				} catch (error) {
 					console.error(error);
 				}
@@ -128,7 +129,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			finish_time: async () => {
 				const url = process.env.BACKEND_URL;
-				const tokenRequirement = "/api/userdata";
+				const tokenRequirement = "/api/userdata/"+ getStore().current;
 
 				try {
 					const response = await fetch(url + tokenRequirement, {
@@ -155,23 +156,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			}, 
 			
-			set_location: async () => {
+			set_location: async (value) => {
 				const url = process.env.BACKEND_URL;
-				const tokenRequirement = "/api/userdata";
+				const tokenRequirement = "/api/userdata/" + getStore().current;
 			  
 				try {
 				  const response = await fetch(url + tokenRequirement, {
-					method: 'POST',
+					method: 'PUT',
 					headers: {
 					  'Authorization': `Bearer ${localStorage.getItem("userToken")}`,
 					  'Content-Type': 'application/json',
 					},
 					body: JSON.stringify({
-					  setLocation: {
-						latitude: newLocation.latitude,
-						longitude: newLocation.longitude,
-						timestamp: new Date().toISOString(),
-					  }
+					  location: value
 					})
 				  });
 			  
@@ -188,19 +185,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 			  
 			},
 			
-			set_liters: async () => {
+			set_liters: async (value) => {
 				const url = process.env.BACKEND_URL;
-				const tokenRequirement = "/api/userdata";
+				const tokenRequirement = "/api/userdata/" + getStore().current;
 			  
 				try {
 				  const response = await fetch(url + tokenRequirement, {
-					method: 'POST',
+					method: 'PUT',
 					headers: {
 					  'Authorization': `Bearer ${localStorage.getItem("userToken")}`,
 					  'Content-Type': 'application/json',
 					},
 					body: JSON.stringify({
-					  setLiters: value
+					  liters: value
 					})
 				  });
 			  
