@@ -2,6 +2,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
+			total_time: [],
+			total_liters: [],
+			average_time: [],
+			average_liters: []
 
 		},
 		actions: {
@@ -121,7 +125,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = await response.json();
 					console.log(data);
-					setStore({current:data.userdata_id})
+					setStore({ current: data.userdata_id })
 				} catch (error) {
 					console.error(error);
 				}
@@ -129,7 +133,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			finish_time: async () => {
 				const url = process.env.BACKEND_URL;
-				const tokenRequirement = "/api/userdata/"+ getStore().current;
+				const tokenRequirement = "/api/userdata/" + getStore().current;
 
 				try {
 					const response = await fetch(url + tokenRequirement, {
@@ -154,70 +158,94 @@ const getState = ({ getStore, getActions, setStore }) => {
 				catch (error) {
 					console.error("An error occurred: ", error);
 				}
-			}, 
-			
+			},
+
 			set_location: async (value) => {
 				const url = process.env.BACKEND_URL;
 				const tokenRequirement = "/api/userdata/" + getStore().current;
-			  
+
 				try {
-				  const response = await fetch(url + tokenRequirement, {
-					method: 'PUT',
-					headers: {
-					  'Authorization': `Bearer ${localStorage.getItem("userToken")}`,
-					  'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({
-					  location: value
-					})
-				  });
-			  
-				  const jsonResponse = await response.json();
-			  
-				  if (response.status !== 200) {
-					throw new Error(`Error: ${response.status}`);
-				  }
-			  
-				  return jsonResponse;
+					const response = await fetch(url + tokenRequirement, {
+						method: 'PUT',
+						headers: {
+							'Authorization': `Bearer ${localStorage.getItem("userToken")}`,
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							location: value
+						})
+					});
+
+					const jsonResponse = await response.json();
+
+					if (response.status !== 200) {
+						throw new Error(`Error: ${response.status}`);
+					}
+
+					return jsonResponse;
 				} catch (error) {
-				  console.error("An error occurred: ", error);
+					console.error("An error occurred: ", error);
 				}
-			  
+
 			},
-			
+
 			set_liters: async (value) => {
 				const url = process.env.BACKEND_URL;
 				const tokenRequirement = "/api/userdata/" + getStore().current;
-			  
+
 				try {
-				  const response = await fetch(url + tokenRequirement, {
-					method: 'PUT',
-					headers: {
-					  'Authorization': `Bearer ${localStorage.getItem("userToken")}`,
-					  'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({
-					  liters: value
-					})
-				  });
-			  
-				  const jsonResponse = await response.json();
-			  
-				  if (response.status !== 200) {
-					throw new Error(`Error: ${response.status}`);
-				  }
-			  
-				  return jsonResponse;
+					const response = await fetch(url + tokenRequirement, {
+						method: 'PUT',
+						headers: {
+							'Authorization': `Bearer ${localStorage.getItem("userToken")}`,
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							liters: value
+						})
+					});
+
+					const jsonResponse = await response.json();
+
+					if (response.status !== 200) {
+						throw new Error(`Error: ${response.status}`);
+					}
+
+					return jsonResponse;
 				} catch (error) {
-				  console.error("An error occurred: ", error);
+					console.error("An error occurred: ", error);
 				}
-			  
+
+			},
+
+			getUserImpact: async (value) => {
+				const url = process.env.BACKEND_URL;
+				const tokenRequirement = "/api/getimpact/";
+
+				try {
+					const response = await fetch(url + tokenRequirement, {
+						method: 'GET',
+						headers: {
+							'Authorization': `Bearer ${localStorage.getItem("userToken")}`,
+							'Content-Type': 'application/json',
+						},
+					});
+
+					const jsonResponse = await response.json();
+
+					if (response.status !== 200) {
+						throw new Error(`Error: ${response.status}`);
+					}
+
+					return jsonResponse;
+
+				} catch (error) {
+					console.error("An error occurred: ", error);
+				}
 			}
-
-		
-
 		}
+
 	}
 }
 
-	export default getState;
+export default getState;

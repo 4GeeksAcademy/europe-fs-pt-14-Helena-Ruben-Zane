@@ -39,9 +39,15 @@ export const UserInsertData = () => {
         }
     };
 
+    const handleaDateTimeHours= (e) => {
+        e.preventDefault ()
+        const currentDateTime = new Date();
+        setStartDateTime(currentDateTime);
+        setEndDateTime(currentDateTime);
+    }
+
     const handleLocation = (e) => {
         e.preventDefault()
-        console.log("Porto")
         actions.set_location(newLocation)
     }
 
@@ -76,7 +82,7 @@ export const UserInsertData = () => {
                     value={endDateTime}
                     onChange={(e) => setEndDateTime(e.target.value)}
                 />
-                <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={handleChange}>
+                <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={handleaDateTimeHours}>
                     Add
                 </button>
             </div>

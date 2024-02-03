@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TimeCounter } from '../component/timeCounter';
 import { UserInsertData } from '../component/userInsertData';
-
+import { ShowUserImpact } from '../component/showUserImpact';
 export const Userdata = () => {
 
   const [userToken, setUserToken] = useState("");
@@ -29,6 +29,8 @@ export const Userdata = () => {
         {userToken && <p>User loged in!</p>}
         <TimeCounter />
         <UserInsertData />
+        <ShowUserImpact />
+
         <button onClick={logout}>Logout</button>
       </div>
     </>
