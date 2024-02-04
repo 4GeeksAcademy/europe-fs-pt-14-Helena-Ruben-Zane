@@ -218,9 +218,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
-			getUserImpact: async (value) => {
+			getUserImpact: async () => {
 				const url = process.env.BACKEND_URL;
-				const tokenRequirement = "/api/getimpact/";
+				const tokenRequirement = "/api/userdata/getimpact/";
 
 				try {
 					const response = await fetch(url + tokenRequirement, {

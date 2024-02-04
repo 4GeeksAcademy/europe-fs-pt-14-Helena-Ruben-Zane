@@ -2,6 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from functools import wraps
+from xml.dom import UserDataHandler
 from flask import Flask, request, jsonify, url_for, Blueprint, abort
 import jwt
 from api.models import db, User, UserData
@@ -161,7 +162,6 @@ def update_userdata(id):
 
     user_token_info = get_jwt_identity()
     email = user_token_info["email"] 
-
     
     try:
         current = UserData.query.get(id)
@@ -182,35 +182,36 @@ def update_userdata(id):
         db.session.close()
     
 
-@api.route ("/getimpact", methods=['GET'])
+@api.route ("/userdata/getimpact", methods=['GET'])
 @jwt_required()
 def getimpact_userdata():
 
     data = request.json
+
+    user_token_info = get_jwt_identity()
+    email = user_token_info["email"] 
+    user= User.query.filter_by(email=email).first()
+
     start_time = data.get ("start_time", None)
     finish_time = data.get ("finish_time", None)
     liters = data.get("liters", None)
 
-    user_token_info = get_jwt_identity()
-    email = user_token_info["email"] 
+    start_time = datetime.strptime(start_time, "%Y-%m-%dT%H:%M:%S") 
+    finish_time = datetime.strptime(finish_time, "%Y-%m-%dT%H:%M:%S")
 
     try: 
-        start_time = datetime.strptime(start_time, "%Y-%m-%dT%H:%M:%S") 
-        finish_time = datetime.strptime(finish_time, "%Y-%m-%dT%H:%M:%S")
-
         user_data_entries = UserData.query.filter_by(user_id=user.id, start_time=start_time, finish_time=finish_time or None, liters=liters if liters else None).all()
     
         if not user_data_entries:
-            return jsonify({"message": "No data available for the specified time range"}), 404
+            return jsonify({"message": "No data available"}), 404
         else: 
-            calc_total_time = finish_time - start_time 
-            total_time = str(calc_total_time)
+            total_time = str((entry.finish_time - entry.start_time) for entry in user_data_entries)
             total_liters = sum(entry.liters for entry in user_data_entries)
-            average_time = total_time / len(user_data_entries) if user_data_entries else 0
+            average_time = sum (total_time) / len(user_data_entries) if user_data_entries else 0
             average_liters = total_liters / len(user_data_entries) if user_data_entries else 0
 
         return jsonify({
-            "message": "Data processed successfully",
+            "message": "Your Sandsmile impact processed successfully",
             "total_time": total_time,
             "total_liters": total_liters,
             "average_time": average_time,
@@ -221,7 +222,7 @@ def getimpact_userdata():
         return jsonify({"error": str(e)}), 500
     finally:
         db.session.close()
-    
+
 
 @api.route('/admin', methods=['PUT'])
 def promote_user():
