@@ -1,1 +1,178 @@
+body {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+}
+
+.home {
+  position: relative;
+}
+
+/* 
+    home nav bar
+*/
+.nav {
+  height: 80px;
+  min-width :100%;
+  margin-top: 25px;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+
+.nav__menu {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav__logo {
+  height: 100%; 
+}
+
+.nav__btn {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  color: #fff;
+  text-align: center;
+  background-color: rgba(129, 172, 168, 0.616);
+  border-radius: 15px;
+  ;
+  
+  :nth-child(1) {
+    margin-left: 20px;
+  }
+}
+
+
+/* 
+    hero - image
+*/
+.hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.hero__image {
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+/*
+  home_form: login/signup
+*/
+.box {
+  position: relative;
+  background: rgba(129, 172, 168, 0.616);
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+}
+
+.box button {
+  text-transform: uppercase;
+  outline: 0;
+  background:rgb(129, 172, 168);
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 17px;
+}
+
+.box button:hover,.box button:active,.box button:focus {
+  background: rgb(77, 156, 148);
+}
+
+/*
+  login page
+*/
+.login-form {
+  position: relative;
+  background: rgba(129, 172, 168, 0.616);
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+}
+
+.login-form input {
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 17px;
+}
+
+.login-form button {
+  text-transform: uppercase;
+  outline: 0;
+  background:rgb(129, 172, 168);
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 17px;
+}
+
+.login-form button:hover,.login-form button:active,.login-form button:focus {
+  background: rgb(77, 156, 148);
+}
+
+/*
+  signup page
+*/
+.signup-form {
+  position: relative;
+  background: rgba(129, 172, 168, 0.616);
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+}
+
+.signup-form input {
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 17px;
+}
+
+.signup-form button {
+  text-transform: uppercase;
+  outline: 0;
+  background:rgb(129, 172, 168);
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 17px;
+}
+
+.signup-form button:hover,.signup-form button:active,.signup-form button:focus {
+  background: rgb(77, 156, 148);
+}
+
+
+
 button { margin: 20px;}
