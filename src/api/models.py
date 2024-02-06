@@ -33,7 +33,7 @@ class UserData(db.Model):
     finish_time =db.Column(db.DateTime, unique=False, nullable=True)
     status = db.Column(db.String, unique=False, nullable=False)
     location = db.Column(db.String, unique=False, nullable=True)
-    liters = db.Column(db.String, unique=False, nullable=True)
+    liters = db.Column(db.Integer, unique=False, nullable=True)
 
     def __repr__(self):
         return f'<UserData {self.user_id}>'

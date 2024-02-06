@@ -19,7 +19,7 @@ import { AmountSubmit } from "./component/amountSubmitForm";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import { UserInsertData } from "./component/userInsertData";
+
 
 
 
@@ -47,9 +47,7 @@ const Layout = () => {
                         <Route element={<AdminPage />} path="/admin" />
 
                         <Route element={<AmountSubmit />} path="/amount" />
-
                         <Route element={<Userdata />} path="/userdata" />
-                        <Route element={<UserInsertData />} path="/userinsertdata" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />

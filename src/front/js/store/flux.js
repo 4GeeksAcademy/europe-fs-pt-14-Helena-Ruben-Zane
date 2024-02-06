@@ -3,6 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			message: null,
 			total_time: [],
+			total_days: [],
 			total_liters: [],
 			average_time: [],
 			average_liters: []
@@ -236,7 +237,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (response.status !== 200) {
 						throw new Error(`Error: ${response.status}`);
 					}
+					setStore({
+						total_time: jsonResponse.total_time,
+						total_liters: jsonResponse.total_liters,
+						average_time: jsonResponse.average_time,
+						average_liters: jsonResponse.average_liters
 
+					})
 					return jsonResponse;
 
 				} catch (error) {

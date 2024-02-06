@@ -13,7 +13,7 @@ from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_jwt_identity
 import os
 import stripe 
-from datetime import datetime 
+from datetime import datetime, timedelta
 
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 stripe.api_version = "2022-08-01"
@@ -186,36 +186,43 @@ def update_userdata(id):
 @jwt_required()
 def getimpact_userdata():
 
-    data = request.json
-
     user_token_info = get_jwt_identity()
     email = user_token_info["email"] 
     user= User.query.filter_by(email=email).first()
 
-    start_time = data.get ("start_time", None)
-    finish_time = data.get ("finish_time", None)
-    liters = data.get("liters", None)
-
-    start_time = datetime.strptime(start_time, "%Y-%m-%dT%H:%M:%S") 
-    finish_time = datetime.strptime(finish_time, "%Y-%m-%dT%H:%M:%S")
-
     try: 
-        user_data_entries = UserData.query.filter_by(user_id=user.id, start_time=start_time, finish_time=finish_time or None, liters=liters if liters else None).all()
-    
+        user_data_entries = UserData.query.filter_by(user_id=user.id).all() 
+        
         if not user_data_entries:
             return jsonify({"message": "No data available"}), 404
         else: 
-            total_time = str((entry.finish_time - entry.start_time) for entry in user_data_entries)
-            total_liters = sum(entry.liters for entry in user_data_entries)
-            average_time = sum (total_time) / len(user_data_entries) if user_data_entries else 0
-            average_liters = total_liters / len(user_data_entries) if user_data_entries else 0
+            aux = []
+            total_time = 0
+            for entry in user_data_entries:
+                if entry.finish_time is not None: 
+                    
+                    start_time = entry.start_time
+                    finish_time = entry.finish_time 
+                    delta = finish_time - start_time
+                    aux.append(delta)
+                    
+                
+            for i in range (len (aux)-1): 
+                sub = aux[i] + aux[i+1] 
+                total_time = sub
+            
+            print (total_time)
+
+            total_liters = sum(int(entry.liters) for entry in user_data_entries if entry.liters is not None)
+            average_liters = round((total_liters / len(user_data_entries) if user_data_entries else 0), 1) 
+            average_time = (total_time / len (aux)) 
 
         return jsonify({
             "message": "Your Sandsmile impact processed successfully",
-            "total_time": total_time,
+            "total_time": str (total_time).split(".")[0],
             "total_liters": total_liters,
-            "average_time": average_time,
-            "average_liters": average_liters
+            "average_liters": average_liters,
+            "average_time": str (average_time).split(".")[0]
         }), 200
     except Exception as e:
         db.session.rollback()
