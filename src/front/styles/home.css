@@ -27,24 +27,48 @@ body {
 }
 
 .nav__logo {
-  height: 100%; 
+  height: 120%; 
 }
 
 .nav__btn {
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
+  align-items: center;
+  background-color:rgba(129, 172, 168, 0.616);
+  border: 0;
+  border-radius: 10px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
   font-size: 20px;
-  color: #fff;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 20px;
+  width: 200px;
+  min-height: 40px;
+  min-width: 0px;
+  overflow: hidden;
+  padding: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
   text-align: center;
-  background-color: rgba(129, 172, 168, 0.616);
-  border-radius: 15px;
-  ;
+  vertical-align: middle;
+}
+
+.nav__btn:hover,
+.nav__btn:focus { 
+  background-color: rgb(77, 156, 148);
+  color: #ffffff;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+}
+
+.nav__btn:disabled { 
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, .08);
+  color: rgba(0, 0, 0, .3);
+};
   
   :nth-child(1) {
     margin-left: 20px;
   }
-}
 
 
 /* 
@@ -52,8 +76,11 @@ body {
 */
 .hero {
   position: relative;
+  display: flex;
   min-height: 100vh;
   overflow: hidden;
+  justify-content: center;
+  align-items: center;
 }
 
 .hero__image {
@@ -71,7 +98,7 @@ object-fit: cover;
   home_form: login/signup
 */
 .box {
-  position: relative;
+  position: absolute;
   background: rgba(129, 172, 168, 0.616);
   max-width: 360px;
   margin: 0 auto 100px;
@@ -176,3 +203,4 @@ object-fit: cover;
 
 
 button { margin: 20px;}
+
