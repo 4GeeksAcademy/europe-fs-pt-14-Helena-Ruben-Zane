@@ -15,7 +15,7 @@ import { Payment } from "./component/Payment";
 import { Completion } from "./component/Completion";
 import CheckoutForm from "./component/CheckoutForm";
 import { AmountSubmit } from "./component/amountSubmitForm";
-
+import { TotalImpact } from "./component/TotalImpact";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -43,9 +43,8 @@ const Layout = () => {
                         <Route element={<Completion />} path="/completion" />
                         <Route element={<CheckoutForm />} path="/checkoutform" />
                         <Route element={<Signup />} path="/signup" />
-
+                        <Route element ={<TotalImpact />}path="/totalimpact" />
                         <Route element={<AdminPage />} path="/admin" />
-
                         <Route element={<AmountSubmit />} path="/amount" />
                         <Route element={<Userdata />} path="/userdata" />
                         <Route element={<Demo />} path="/demo" />

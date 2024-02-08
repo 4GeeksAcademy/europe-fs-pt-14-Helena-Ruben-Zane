@@ -26,8 +26,7 @@ export const UserInsertData = () => {
         setLiters("");
         actions.set_liters();
     };
-
-
+    
     const handleChange = (e) => {
         if (e.key === "Enter") {
             handleSubmit(e);
@@ -59,36 +58,6 @@ export const UserInsertData = () => {
 
     return (
         <div className="userInsertData container-fluid">
-            <div class="dropdown">
-                <p className="title mt-4"> Did you went to the Sandsmiler's mission without the Timecounter?
-                    Don't worry! </p>
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Add your off-site collection data here:
-                </button>
-                <ul class="dropdown-menu">
-                    <input
-                        type="datetime-local"
-                        id="collecting_time"
-                        className="form-control"
-                        aria-describedby="button-addon2"
-                        value={startDateTime}
-                        onChange={(e) => setStartDateTime(e.target.value)}
-
-                    />
-                    <input
-                        type="datetime-local"
-                        id="complete_collecting_time"
-                        className="form-control"
-                        aria-describedby="button-addon2"
-                        value={endDateTime}
-                        onChange={(e) => setEndDateTime(e.target.value)}
-                    />
-
-                    <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={handleaDateTimeHours}>
-                        Add
-                    </button>
-
-                </ul>
 
                 <div className="input-group input-group-sm mb-3">
                     <input
@@ -122,6 +91,36 @@ export const UserInsertData = () => {
                     </button>
                 </div>
 
+                <div className="dropdown">
+                <p className="title mt-4"> Did you went to the Sandsmiler's mission without the Timecounter?
+                    Don't worry! </p>
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Add your off-site collection data here:
+                </button>
+                <ul className="dropdown-menu">
+                    <input
+                        type="datetime-local"
+                        id="collecting_time"
+                        className="form-control"
+                        aria-describedby="button-addon2"
+                        value={startDateTime}
+                        onChange={(e) => setStartDateTime(e.target.value)}
+
+                    />
+                    <input
+                        type="datetime-local"
+                        id="complete_collecting_time"
+                        className="form-control"
+                        aria-describedby="button-addon2"
+                        value={endDateTime}
+                        onChange={(e) => setEndDateTime(e.target.value)}
+                    />
+
+                    <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={handleaDateTimeHours}>
+                        Add
+                    </button>
+
+                </ul>
             </div>
         </div>
     )

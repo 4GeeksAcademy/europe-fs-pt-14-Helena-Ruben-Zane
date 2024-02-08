@@ -155,7 +155,7 @@ def handle_userdata():
 def update_userdata(id):
 
     data = request.json
-    
+
     finish_time = data.get ("finish_time", None)
     location = data.get("location", None)
     liters = data.get("liters", None)
@@ -166,10 +166,13 @@ def update_userdata(id):
     try:
         current = UserData.query.get(id)
         if current : 
-            current.finish_time = finish_time if finish_time else None
+            if finish_time: 
+                current.finish_time = finish_time
+            if location:     
+                current.location = location if location else None
+            if liters: 
+                current.liters = liters if liters else None
             current.status = "completed"
-            current.location = location if location else None
-            current.liters = liters if liters else None
             db.session.commit()
             return jsonify({"message":"Your data is succesfully updated"}), 200
         else:
@@ -230,6 +233,40 @@ def getimpact_userdata():
     finally:
         db.session.close()
 
+@api.route ("/totalimpact",  methods=['GET'])
+def total_impact():
+    all_users = UserData.query.all()
+    total_users = len(all_users)
+    total_impact_time = datetime.now () - datetime.now ()
+    total_impact_liters = 0
+
+    try: 
+        if not all_users:
+            return jsonify({"message": "No user data available"}), 404
+        else:
+            aux = []
+            for entry in all_users:
+                if entry.finish_time is not None and entry.start_time is not None:
+                    delta = entry.finish_time - entry.start_time
+                    aux.append(delta)    
+                
+            for i in range (len (aux)): 
+                total_impact_time = total_impact_time + aux[i]
+            print (type(entry.liters))
+            total_impact_liters = sum(int(entry.liters) for entry in all_users if entry.liters is not None)
+           
+        return jsonify({
+            "message": "Sandsmile impact",
+            "total_users": total_users, 
+            "total_impact_time": str (total_impact_time).split(".")[0],
+            "total_impact_liters": total_impact_liters,
+
+        }), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+    finally:
+        db.session.close()
 
 @api.route('/admin', methods=['PUT'])
 def promote_user():

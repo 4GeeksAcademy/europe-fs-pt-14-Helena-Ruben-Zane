@@ -6,7 +6,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			total_days: [],
 			total_liters: [],
 			average_time: [],
-			average_liters: []
+			average_liters: [],
+			total_users: [],
+			total_impact_time: [],
+			total_impact_liters: []
+
 
 		},
 		actions: {
@@ -238,6 +242,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error(`Error: ${response.status}`);
 					}
 					setStore({
+						messageToShowAlert: jsonResponse,
 						total_time: jsonResponse.total_time,
 						total_liters: jsonResponse.total_liters,
 						average_time: jsonResponse.average_time,
@@ -249,7 +254,38 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.error("An error occurred: ", error);
 				}
+			},
+
+			getTotalImpact: async () => {
+				const url = process.env.BACKEND_URL;
+				const tokenRequirement = "/api/totalimpact/";
+
+				try {
+					const response = await fetch(url + tokenRequirement, {
+						method: 'GET',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+					});
+
+					const jsonResponse = await response.json();
+
+					if (response.status !== 200) {
+						throw new Error(`Error: ${response.status}`);
+					}
+					setStore({
+						messageToShowAlert: jsonResponse,
+						total_users: jsonResponse.total_users, 
+						total_impact_time: jsonResponse.total_impact_time,
+						total_impact_liters: jsonResponse.total_impact_liters
+					});
+					return jsonResponse;
+
+				} catch (error) {
+					console.error("An error occurred: ", error)
+				}
 			}
+
 		}
 
 	}
