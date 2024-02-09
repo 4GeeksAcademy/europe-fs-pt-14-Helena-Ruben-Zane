@@ -2,6 +2,9 @@ import React, {useState } from 'react'
 import { useContext } from 'react'
 import { Context } from '../store/appContext'
 import { useNavigate,Link } from 'react-router-dom'
+import { NavBar } from "../component/navbar";
+import Image4 from "../../img/image4.jpg";
+
 
 
 export const Login = () => {
@@ -32,24 +35,22 @@ export const Login = () => {
     }
   
     return (
-      <div className='container-form'>
-          <form 
-          id='contact-form' className='form-signup'>
-              <h6>Login</h6>
-              <label className='label-signup' for="email">Email:</label>
-              <input className='input-signup' type="email" id="email" name="email" value={email} onChange={(e)=> setEmail(e.target.value)} required/>
-    
-              <label className='label-signup' for="password">Password:</label>
-              <input className='input-signup' type="password" id="password" name="password" value={password} onChange={(e)=> setPassword(e.target.value)} required/>
-  
-              <button className="button-signup" type="button" onClick={loginUser}>Login</button>
-          </form>
-          {error && <p>{error}</p>}
-
-          <div className='goHome-login'>
-            <Link to="/">Go to Home</Link>
+    <div className="login">
+        <NavBar />
+        <div className="hero">
+            <img className="hero__image" src={Image4} />
+        </div>
+        <div className="login-page">
+            <div className='container login-form'>
+                <form 
+                     id='contact-form' className='login-form__input'>
+                    <input type="email" id="email" name="email" value={email} onChange={(e)=> setEmail(e.target.value)} required placeholder='e-mail'/>
+                    <input type="password" id="password" name="password" value={password} onChange={(e)=> setPassword(e.target.value)} required placeholder='password'/>
+                    <button type="button" onClick={loginUser}><strong>Login</strong></button>
+                </form>
+            {error && <p>{error}</p>}
             </div>
-
-      </div>
+        </div>
+    </div>
     )
 }

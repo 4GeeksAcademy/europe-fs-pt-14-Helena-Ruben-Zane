@@ -7,6 +7,7 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
+import { SignupLogin } from "./pages/signuplogin";
 import { Login } from "./pages/login";
 import { Signup } from "./pages/signup";
 import { Userdata } from "./pages/userdata";
@@ -17,7 +18,7 @@ import CheckoutForm from "./component/CheckoutForm";
 import { AmountSubmit } from "./component/amountSubmitForm";
 
 
-import { Navbar } from "./component/navbar";
+import { NavBar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { UserInsertData } from "./component/userInsertData";
 import { TimeCounter } from "./component/timeCounter";
@@ -35,10 +36,11 @@ const Layout = () => {
         <div>
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
-                    {/* <Navbar /> */}
+                    {/* <NavBar /> */}
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<Login />} path="/login" />
+                        <Route element={<SignupLogin />} path="/signuplogin"/>
                         <Route element={<Payment />} path="/donation" />
                         <Route element={<Completion />} path="/completion" />
                         <Route element={<CheckoutForm />} path="/checkoutform" />

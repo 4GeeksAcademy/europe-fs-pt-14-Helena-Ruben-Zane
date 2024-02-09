@@ -28,30 +28,48 @@ body {
 }
 
 .nav__logo {
-  height: 120%;
-  border-radius: 20px;
-  box-shadow: 0px 0px 10px #6e6e6e;
-  
+  height: 120%; 
 }
 
 .nav__btn {
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
+  align-items: center;
+  background-color:rgba(129, 172, 168, 0.616);
+  border: 0;
+  border-radius: 10px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
   font-size: 20px;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  color: #fff;
-  background-color: #b99e23;
- 
+  font-weight: 600;
+  justify-content: center;
+  line-height: 20px;
+  width: 200px;
+  min-height: 40px;
+  min-width: 0px;
+  overflow: hidden;
+  padding: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  vertical-align: middle;
+}
 
+.nav__btn:hover,
+.nav__btn:focus { 
+  background-color: rgb(77, 156, 148);
+  color: #ffffff;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+}
+
+.nav__btn:disabled { 
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, .08);
+  color: rgba(0, 0, 0, .3);
+};
+  
   :nth-child(1) {
     margin-left: 20px;
   }
-}
-
-.nav__btn:hover {
-  color: #4e6462;
-}
 
 /* 
     hero - video
@@ -150,3 +168,131 @@ body {
 
 button { margin: 20px;}
 
+/* 
+    hero - image
+*/
+.hero {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero__image {
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+/*
+  home_form: login/signup
+*/
+.box {
+  position: absolute;
+  background: rgba(129, 172, 168, 0.616);
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+}
+
+.box button {
+  text-transform: uppercase;
+  outline: 0;
+  background:rgb(129, 172, 168);
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 17px;
+}
+
+.box button:hover,.box button:active,.box button:focus {
+  background: rgb(77, 156, 148);
+}
+
+/*
+  login page
+*/
+.login-form {
+  position: relative;
+  background: rgba(129, 172, 168, 0.616);
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+}
+
+.login-form input {
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 17px;
+}
+
+.login-form button {
+  text-transform: uppercase;
+  outline: 0;
+  background:rgb(129, 172, 168);
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 17px;
+}
+
+.login-form button:hover,.login-form button:active,.login-form button:focus {
+  background: rgb(77, 156, 148);
+}
+
+/*
+  signup page
+*/
+.signup-form {
+  position: relative;
+  background: rgba(129, 172, 168, 0.616);
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+}
+
+.signup-form input {
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 17px;
+}
+
+.signup-form button {
+  text-transform: uppercase;
+  outline: 0;
+  background:rgb(129, 172, 168);
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 17px;
+}
+
+.signup-form button:hover,.signup-form button:active,.signup-form button:focus {
+  background: rgb(77, 156, 148);
+}

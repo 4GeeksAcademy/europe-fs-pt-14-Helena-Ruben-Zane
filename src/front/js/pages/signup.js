@@ -2,7 +2,8 @@ import React, { useRef, useState } from 'react'
 import { useContext } from 'react'
 import { Context } from '../store/appContext'
 import { Link, useNavigate } from 'react-router-dom'
-
+import { NavBar } from "../component/navbar";
+import Image4 from "../../img/image4.jpg";
 
 export const Signup = () => {
 
@@ -23,9 +24,9 @@ export const Signup = () => {
    };
 
    const handleSubmit = async (formSignup) => {
- 
+    // Iterate over the signup state object
     for (let key in formSignup) {
-    
+      // Check if the value of the current field is empty
       if (!formSignup[key]) {
         alert(`Please fill in the ${key} field.`);
         return;
@@ -49,30 +50,25 @@ export const Signup = () => {
    };
 
   return (
-    <div className='container-form'>
-        <form 
-        ref={formRef}
-        id='contact-form' className='form-signup'
-        onSubmit={(e) => { e.preventDefault(); handleSubmit(signup); }}>
-            <h6>Signup</h6>
-
-            <label className='label-signup' for="user">User:</label>
-            <input className='input-signup' type="username" id="username" name="username" onChange={(e)=>(handleInputForm(e.target.value, e.target.name))} required/>
-            
-            <label className='label-signup' for="email">Email:</label>
-            <input className='input-signup' type="email" id="email" name="email" onChange={(e)=>(handleInputForm(e.target.value, e.target.name))} required/>
-
-            <label className='label-signup' for="password">Password:</label>
-            <input className='input-signup' type="password" id="password" name="password"  onChange={(e)=>(handleInputForm(e.target.value, e.target.name))} required/>
-
-            <label className='label-signup' for="confirmPassword">Confirm Password:</label>
-            <input className='input-signup' type="password" id="confirmPassword" name="confirmPassword" onChange={(e)=>(handleInputForm(e.target.value, e.target.name))} required/>
-
-            <button className="button-signup" type="button" onClick={()=>handleSubmit(signup)}>Sign Up</button>
-        </form>
-        <div className='goHome-login'>
-            <Link to="/">Go to Home</Link>
-            </div>
+    <div className='signup'>
+         <NavBar />
+        <div className="hero">
+            <img className="hero__image" src={Image4} />
+        </div>
+        <div className="signup-page">
+          <div className='container signup-form'>
+              <form 
+            ref={formRef}
+            id='contact-form' className='form-signup'
+            onSubmit={(e) => { e.preventDefault(); handleSubmit(signup); }}>
+                <input type="username" id="username" name="username" onChange={(e)=>(handleInputForm(e.target.value, e.target.name))} required placeholder='name'/>
+                <input type="email" id="email" name="email" onChange={(e)=>(handleInputForm(e.target.value, e.target.name))} required placeholder='e-mail'/>
+                <input type="password" id="password" name="password"  onChange={(e)=>(handleInputForm(e.target.value, e.target.name))} required placeholder='password'/>
+                <input type="password" id="confirmPassword" name="confirmPassword" onChange={(e)=>(handleInputForm(e.target.value, e.target.name))} required placeholder='confirm password'/>
+                <button type="button" onClick={()=>handleSubmit(signup)}><strong>Sign Up</strong></button>
+            </form>  
+          </div>
+        </div>
     </div>
   )
 }
