@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export const UserLevelConnectLink = () => {
   const [role, setRole] = useState(null);
@@ -81,6 +82,13 @@ export const UserLevelConnectLink = () => {
         <button onClick={handleButtonClick}>
           Link your account
         </button>
+      )}
+      {role === "Admin" && (
+        <Link to="/admin">
+        <button >
+          Go to Admin Page
+        </button>
+      </Link> 
       )}
     </>
   );
