@@ -29,7 +29,7 @@ export const Home = () => {
 				<p><strong>Make a difference today, for a clean ocean and a healthy planet.</strong> Your donation will be used to organize new clean-up events on Portugal's beaches, hold awareness-raising sessions and reward our smiling cleaners who show the greatest passion for the activity.</p>
 				<p>With our activity, we will contribute to <strong>an active role in cleaning up our oceans, protecting marine life and combating the climate crisis.</strong></p>
 				<div>
-					<Link to="/donate" className="donations__button btn round">
+					<Link to="/donation" className="donations__button btn round">
 						<span><strong>GET INVOLVED AND DONATE</strong></span>
 					</Link>
 				</div>

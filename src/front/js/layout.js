@@ -11,7 +11,7 @@ import { Login } from "./pages/login";
 import { Signup } from "./pages/signup";
 import { Userdata } from "./pages/userdata";
 import { AdminPage } from "./pages/AdminPage";
-import { Payment } from "./component/Payment";
+import { Payment } from "./pages/Payment";
 import { Completion } from "./component/Completion";
 import CheckoutForm from "./component/CheckoutForm";
 import { AmountSubmit } from "./component/amountSubmitForm";
@@ -43,13 +43,10 @@ const Layout = () => {
                         <Route element={<Completion />} path="/completion" />
                         <Route element={<CheckoutForm />} path="/checkoutform" />
                         <Route element={<Signup />} path="/signup" />
-
                         <Route element={<AdminPage />} path="/admin" />
-
                         <Route element={<AmountSubmit />} path="/amount" />
-
                         <Route element={<Userdata />} path="/userdata" />
-                        <Route element= {<TimeCounter />} path="/timecounter"/> 
+                        <Route element={<TimeCounter />} path="/timecounter" />
                         <Route element={<UserInsertData />} path="/userinsertdata" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
