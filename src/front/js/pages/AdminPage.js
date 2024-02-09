@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 export const AdminPage = () => {
 const [users, setUsers] = useState([]);
@@ -78,7 +79,6 @@ const [userToken, setUserToken] = useState("");
     console.log(data.message || data.error);
     alert('User updated successfully!');
   
-    // After the first request completes, proceed with the second request
     return fetch(`${process.env.BACKEND_URL}/api/stripelink`, {
       method: 'PUT',
       headers: {
@@ -155,7 +155,7 @@ if (userLevel !== 3) {
  return (
   <div>
      ...
-     <h3>Select a user email to update for level 2</h3>
+     <h3>Select a user email to update for level 2, and insert the link to conect the user with stripe</h3>
      <div>
       <select onChange={e => setSelectedEmail(e.target.value)}>
       {users.map(user => (
@@ -187,6 +187,11 @@ if (userLevel !== 3) {
        </label>
        <input type="submit" value="Submit" />
      </form>
+     <Link to="/userdata">
+        <button >
+          Go to User Information Page
+        </button>
+      </Link> 
   </div>
     
  );

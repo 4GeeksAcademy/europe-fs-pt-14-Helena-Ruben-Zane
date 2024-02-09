@@ -12,6 +12,7 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_jwt_identity
+from flask import current_app
 import os
 import stripe
 
@@ -124,7 +125,7 @@ from flask import request
 def create_payment_intent():
     try:
         data = request.get_json()
-        amount = data.get('amount') 
+        amount = data.get('amount')  
 
         payment_intent = stripe.PaymentIntent.create(
             amount=amount,
@@ -136,8 +137,8 @@ def create_payment_intent():
 
         return jsonify({"client_secret": payment_intent.client_secret})
     except Exception as e:
-        api.logger.error(str(e))
-        return jsonify({}), 400
+        current_app.logger.error(str(e))
+        return jsonify({}),  400
 
 
 @api.route ("/userdata/", methods=["POST"]) 
