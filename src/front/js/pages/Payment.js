@@ -44,6 +44,7 @@ export const Payment = () => {
 
   return (
     <>
+      
       <h1>Donation</h1>
       <AmountSubmit setParentAmount={setAmount} /> { }
       {clientSecret && stripePromise && (
@@ -51,6 +52,7 @@ export const Payment = () => {
           <CheckoutForm />
         </Elements>
       )}
+      
     </>
   );
 };
