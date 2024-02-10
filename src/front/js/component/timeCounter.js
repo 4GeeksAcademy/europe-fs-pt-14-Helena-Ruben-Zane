@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
+import { SubmitButton } from "./submitButton";
 
 export const TimeCounter = () => {
   const [timer, setTime] = useState(0)
   const [active, setActive] = useState(false)
-  const [buttonText, setButtonText] = useState("Get the collection going")
+  const [buttonText, setButtonText] = useState("Begin tracking")
   const {store, actions} = useContext (Context)
   const [pending, setPending] = useState (false)
   useEffect(() => {
@@ -21,17 +22,12 @@ export const TimeCounter = () => {
     };
   }, [timer, active, setTime]);
 
-  const startPause = () => {
+  const startStop = () => {
     setActive((prevActive) => !prevActive);
-    setButtonText((prevText) => (prevText === "Get the collection going" ? "Pause" : "Get the collection going")) 
+    setButtonText((prevText) => (prevText === "Begin tracking" ? "Stop tracking" : "Begin tracking")) 
     if (!pending) actions.start_time() 
     setPending (true)
   };
-  const submitTime = () => {
-    setActive((prevActive) => !prevActive);
-    actions.finish_time()
-    setPending (false)
-  }; 
 
   const hours = Math.floor(timer / 3600);
   const minutes = Math.floor(timer % 3600 / 60);
@@ -68,11 +64,8 @@ export const TimeCounter = () => {
       </div>
       <div className="card-footer text-light-emphasis fw-lighter">
         <div className="buttons text-light-emphasis fw-lighter">
-          <button type="buttonStart" className="btn btn-info btn-sm me-2" onClick={startPause}>
+          <button type="buttonStart" className="btn btn-info btn-sm me-2" onClick={startStop}>
             {buttonText}
-          </button>
-          <button type="buttonComplete" className="btn btn-info btn-sm me-2" disabled={!active} onClick={submitTime}>
-            Complete the collection
           </button>
         </div>
       </div>

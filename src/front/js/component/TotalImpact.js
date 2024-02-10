@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 
 export const TotalImpact = () => {
     const { store, actions } = useContext(Context);
-    const [isLoading, setIsLoading] = useState(true); // Set initial state to true
+    const [isLoading, setIsLoading] = useState(true); 
 
     useEffect(() => {
         const handleTotalImpact = async () => {

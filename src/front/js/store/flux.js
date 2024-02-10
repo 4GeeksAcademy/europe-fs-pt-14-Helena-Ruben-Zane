@@ -2,6 +2,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
+			liters: [],
+			location: [],
+			start_time: [],
+			finish_time: [],
 			total_time: [],
 			total_days: [],
 			total_liters: [],
@@ -14,6 +18,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 		},
 		actions: {
+
+			setStartTime: (start_time) => {
+					const store = getStore()
+					const currentDate = datetime.now ()
+					setStore({ ...store, start_time: currentDate });
+			},
+			
+
+			setFinishTime: (finish_time) => {
+				const store = getStore()
+				const finishTime = datetime.now ()
+				setStore({ ...store, finish_time: finishTime });
+			},
+
+			setNewLiters: (value) => {
+				const store = getStore()
+				setStore({ ...store, liters: value })
+			},
+
+			setNewLocation: (value) => {
+				const store = getStore()
+				setStore({ ...store, location: value })
+			},
+
 
 			signupNewUser: async (formSignup) => {
 				const url = process.env.BACKEND_URL;
@@ -40,7 +68,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log(jsonResponse)
 
 					}
-
 				}
 
 				catch (e) {
@@ -136,7 +163,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			finish_time: async () => {
+			submitData: async (finish_time, location, liters) => {
 				const url = process.env.BACKEND_URL;
 				const tokenRequirement = "/api/userdata/" + getStore().current;
 
@@ -149,6 +176,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						},
 						body: JSON.stringify({
 							finish_time: new Date().toISOString(),
+							location: location,
+							liters: liters
+
 						})
 					})
 
@@ -275,7 +305,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 					setStore({
 						messageToShowAlert: jsonResponse,
-						total_users: jsonResponse.total_users, 
+						total_users: jsonResponse.total_users,
 						total_impact_time: jsonResponse.total_impact_time,
 						total_impact_liters: jsonResponse.total_impact_liters
 					});
@@ -285,10 +315,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("An error occurred: ", error)
 				}
 			}
-
 		}
 
 	}
+
 }
 
 export default getState;

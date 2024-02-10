@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TimeCounter } from '../component/timeCounter';
-import { UserInsertData } from '../component/userInsertData';
+import { InsertLocationLiters } from '../component/inserLocationLiters';
 import { ShowUserImpact } from '../component/showUserImpact';
+import { InsertData } from '../component/insertData';
+import { SubmitButton } from '../component/submitButton';
 export const Userdata = () => {
 
   const [userToken, setUserToken] = useState("");
@@ -28,8 +30,11 @@ export const Userdata = () => {
       <div className="text-center mt-5">
         {userToken && <p>User loged in!</p>}
         <TimeCounter />
-        <UserInsertData />
+        <InsertData /> 
+        <InsertLocationLiters />
+        <SubmitButton /> 
         <ShowUserImpact />
+        
 
         <button onClick={logout}>Logout</button>
       </div>
