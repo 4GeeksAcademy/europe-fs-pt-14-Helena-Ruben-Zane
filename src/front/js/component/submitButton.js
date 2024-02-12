@@ -11,7 +11,12 @@ export const SubmitButton = () => {
 
         try {
             setPending(true);
-            await actions.submitData();
+            if (store.start_time && store.finish_time &&  store.location && store.liters){
+                actions.submit_manual_data();
+            } else { 
+                await actions.submitData();
+            }
+            
            
         } catch (error) {
             console.error("An error occurred while submitting data: ", error);
