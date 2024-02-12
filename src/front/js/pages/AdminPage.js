@@ -7,7 +7,7 @@ import { NavBar } from "../component/navbar";
 
 export const AdminPage = () => {
   const [users, setUsers] = useState([]);
-  const [selectedEmail, setSelectedEmail] = useState(null);
+  const [selectedEmail, setSelectedEmail] = useState("");
   const [loading, setLoading] = useState(true);
   const [day, setDay] = useState("");
   const [location, setLocation] = useState("");
@@ -16,22 +16,19 @@ export const AdminPage = () => {
   const [link, setLink] = useState("");
   const [userLevel, setUserLevel] = useState(null)
   const [userToken, setUserToken] = useState("");
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const userToken = localStorage.getItem("userToken");
-    if (!userToken) {
-      navigate("/login");
-      return;
-    }
-    setUserToken(userToken);
-
-    fetch(`${process.env.BACKEND_URL}/api/userslevel`, {
-      headers: {
-        'Authorization': `Bearer ${userToken}`
+    const navigate = useNavigate();
+    useEffect(() => {
+      const userToken = localStorage.getItem("userToken");
+      if (!userToken) {
+        navigate("/login");
+        return;
       }
-    })
+      setUserToken(userToken);
+      fetch(`${process.env.BACKEND_URL}/api/userslevel`, {
+        headers: {
+          'Authorization': `Bearer ${userToken}`
+        }
+      })
       .then(response => response.json())
       .then(data => {
         setUserLevel(data.level);
@@ -40,48 +37,25 @@ export const AdminPage = () => {
         console.error('Error fetching user level:', error);
         navigate("/login");
       });
-  }, [navigate]);
-
-
-  useEffect(() => {
-    const routeRequirement = "/api/users";
-    const url = `${process.env.BACKEND_URL}${routeRequirement}`;
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        setUsers(data.results);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error(`Error fetching users: ${error}`);
-        setLoading(false);
-      });
-
-
- const handlePromote = () => {
-  const adminRouteRequirement = "/api/admin";
-  const url = `${process.env.BACKEND_URL}${adminRouteRequirement}`;
-  
-  fetch(url, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: selectedEmail
-    }),
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log(data.message || data.error);
-    alert('User updated successfully!');
-  
-    return fetch(`${process.env.BACKEND_URL}/api/stripelink`, {
+   }, [navigate]);
+   useEffect(() => {
+      const routeRequirement = "/api/users";
+      const url = `${process.env.BACKEND_URL}${routeRequirement}`;
+      fetch(url)
+   .then(response => response.json())
+   .then(data => {
+      setUsers(data.results);
+      setLoading(false);
+   })
+        .catch(error => {
+          console.error(`Error fetching users: ${error}`);
+          setLoading(false);
+        });
+   }, []);
+   const handlePromote = () => {
+    const adminRouteRequirement = "/api/admin";
+    const url = `${process.env.BACKEND_URL}${adminRouteRequirement}`;
+    fetch(url, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -90,93 +64,81 @@ export const AdminPage = () => {
         email: selectedEmail
       }),
     })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log(data.message || data.error);
-        alert('User updated successfully!');
-
-        // After the first request completes, proceed with the second request
-        return fetch(`${process.env.BACKEND_URL}/api/stripelink`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: selectedEmail,
-            stripe_link_integration: link
-          }),
-        });
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log(data.message || data.error);
-        alert('Stripe link updated successfully!');
-      })
-      .catch(error => {
-        console.error(`Error updating user or Stripe link: ${error}`);
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data.message || data.error);
+      alert('User updated successfully!');
+      return fetch(`${process.env.BACKEND_URL}/api/stripelink`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: selectedEmail,
+          stripe_link_integration: link
+        }),
       });
-  };
-
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  const handleSubmit = (event) => {
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data.message || data.error);
+      alert('Stripe link updated successfully!');
+    })
+    .catch(error => {
+      console.error(`Error updating user or Stripe link: ${error}`);
+    });
+   };
+   if (loading) {
+      return <div>Loading...</div>;
+   }
+   const handleSubmit = (event) => {
     event.preventDefault();
-
     const adminRouteRequirement = "/api/event";
     const url = `${process.env.BACKEND_URL}${adminRouteRequirement}`;
-
     const eventData = {
-      day: day,
-      hour: hour,
-      location: location,
-      meeting_point: meetingPoint,
+         day: day,
+         hour: hour,
+         location: location,
+         meeting_point: meetingPoint,
     };
-
     fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(eventData),
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json',
+         },
+         body: JSON.stringify(eventData),
     })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Success:', data);
-        alert("Event created successfully");
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  };
-
-  if (loading) {
+         .then(response => {
+             if (!response.ok) {
+               throw new Error('Network response was not ok');
+             }
+             return response.json();
+         })
+         .then(data => {
+           console.log('Success:', data);
+           alert("Event created successfully");
+         })
+         .catch((error) => {
+           console.error('Error:', error);
+         });
+   };
+   if (loading) {
     return <div>Loading...</div>;
   }
-
   if (userLevel !== 3) {
     return <div>Access denied. Only users with level 3 can access this page.</div>;
   }
-
-
-  return (
+   return (
     <div className="admin-page">
       <NavBar />
       <div className="admin-container">
@@ -236,7 +198,7 @@ export const AdminPage = () => {
               </div>
             </div>
             <div className="event-form-submit d-flex justify-content-end mt-3">
-              <button onClick={handleSubmit} className="btn btn-success px-4 py-2">Submit</button>
+              <button type="submit" className="btn btn-success px-4 py-2">Submit</button>
             </div>
           </form>
         </div>

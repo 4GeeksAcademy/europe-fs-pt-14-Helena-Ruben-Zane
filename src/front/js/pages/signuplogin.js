@@ -11,7 +11,7 @@ export const SignupLogin = () => {
 			<div className="hero">
 				<img className="hero__image" src={Image5} />
 				<div className="container box">
-					<div className="mt-5">
+					<div>
 						<Link to="/signup">
 							<button><strong>SIGN UP</strong></button>
 						</Link>
