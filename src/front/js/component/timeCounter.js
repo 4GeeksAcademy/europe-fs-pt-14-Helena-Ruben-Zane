@@ -27,7 +27,7 @@ export const TimeCounter = () => {
     setButtonText((prevText) => (prevText === "Begin tracking" ? "Stop tracking" : "Begin tracking")) 
     if (!pending) actions.start_time() 
     setPending (true)
-  };
+  }
 
   const hours = Math.floor(timer / 3600);
   const minutes = Math.floor(timer % 3600 / 60);
