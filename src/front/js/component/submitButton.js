@@ -10,11 +10,16 @@ export const SubmitButton = () => {
     const handleSubmit = async () => {
 
         try {
-            setPending(true);
+            actions.setLiters;
+            actions.setLocation;
+
             if (store.start_time && store.finish_time &&  store.location && store.liters){
                 actions.submit_manual_data();
+                
             } else { 
-                await actions.submitData();
+                await actions.submitData(
+
+                );
             }
             
            

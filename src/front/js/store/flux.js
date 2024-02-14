@@ -31,12 +31,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ ...store, finish_time: new Date().toISOString() });
 			},
 
-			setNewLiters: (value) => {
+			setLiters: (value) => {
 				const store = getStore()
 				setStore({ ...store, liters: value })
 			},
 
-			setNewLocation: (value) => {
+			setLocation: (value) => {
 				const store = getStore()
 				setStore({ ...store, location: value })
 			},
@@ -167,14 +167,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const tokenRequirement = "/api/userdata/" + getStore().current;
 
 				const requestBody = {
-					finish_time: new Date().toISOString(),
-					location: location,
-					liters: liters
+							start_time: getStore().start_time,
+							finish_time: getStore().finish_time,
+							location: getStore().location,
+							liters: getStore().liters,
 				};
-
-				if (start_time !== 'pending') {
-					requestBody.start_time = start_time;
-				}
 				console.log(getStore().start_time, getStore().finish_time, getStore().location, getStore().liters)
 
 

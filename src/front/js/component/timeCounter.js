@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { Context } from "../store/appContext";
-import { SubmitButton } from "./submitButton";
 
 export const TimeCounter = () => {
   const [timer, setTime] = useState(0)
   const [active, setActive] = useState(false)
-  const [buttonText, setButtonText] = useState("BEGIN")
-  const { store, actions } = useContext(Context)
-  const [pending, setPending] = useState(false)
-  const clockHandRef = useRef(null);
 
+  const {store, actions} = useContext (Context)
+  const [pending, setPending] = useState (false)
+  const clockHandRef = useRef(null);
+  
   useEffect(() => {
     let intervalId;
 
@@ -23,23 +22,21 @@ export const TimeCounter = () => {
       clearInterval(intervalId);
     };
   }, [timer, active, setTime]);
-
-  const startStop = () => {
-
-    if (clockHandRef.current) {
-      clockHandRef.current.classList.toggle('blinking');
-    }
+  
+  const start = () => {
     setActive(prevActive => !prevActive);
-    setButtonText(prevText => (prevText === "BEGIN" ? "STOP" : "BEGIN"));
-    if (!pending) {
-      actions.start_time();
-      setPending(true);
-    } else {
-      setPending(false);
-    }
-  };
-  console.log(clockHandRef.current);
+    actions.setStartTime()
+    actions.start_time ()
+    setPending (true)
+  }
 
+  
+  const stop = () => {
+    setActive(prevActive => !prevActive);
+    actions.setFinishTime()
+    setPending (false)
+  }
+  console.log (actions.setFinishTime)
 
   const hours = Math.floor(timer / 3600);
   const minutes = Math.floor(timer % 3600 / 60);
@@ -79,9 +76,11 @@ export const TimeCounter = () => {
           <span>Every second you spent collecting the waste, does matter...</span>
         </div>
         <div className="counter-button">
-          <button type="buttonStart" className="counter_button" id="clockHand" onClick={startStop}>
-            {buttonText}
-          </button>
+           {!pending && <button type="buttonStart" className="btn btn-info btn-sm me-2" onClick={start}>
+            "Begin"
+           <button type="buttonStart" className="counter_button" id="clockHand"  onClick={stop}>
+            "Stop "
+          </button>}
         </div>
       </div>
     </div>

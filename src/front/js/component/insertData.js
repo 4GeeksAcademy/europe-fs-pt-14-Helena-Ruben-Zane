@@ -19,14 +19,6 @@ export const InsertData = () => {
         actions.setFinishTime(e.target.value);
     };
 
-    const handleNewLocation = (e) => {
-        actions.setNewLocation(e.target.value);
-    };
-
-    const handleNewLiters = (e) => {
-        actions.setNewLiters(e.target.value);
-    };
-
     return (
         <div className="insert-data-container container-fluid d-flex justify-content-center">
             <div className="dropdown">
