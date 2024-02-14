@@ -45,12 +45,13 @@ export const Payment = () => {
   }, [amount]);
 
   return (
-    <div className="home">
+    <>
+        <div className="home">
           <NavBar />
           <div className="hero">
 				    <img className="hero__image" src={Image4} />
               <div className="container donate-box ">
-                <h4><strong>JOIN THE CLEANUP!</strong></h4>
+                <h><strong>JOIN THE CLEANUP!</strong></h>
                 <p>Please enter the amount in <strong>euros</strong> you wish to donate to our cause</p>
                 <AmountSubmit setParentAmount={setAmount} /> {}
                 {clientSecret && stripePromise && (
@@ -62,6 +63,8 @@ export const Payment = () => {
             </div>
           </div>        
         </div> 
-  );
+    </>
+ );
 };
+
 
