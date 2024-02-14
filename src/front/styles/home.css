@@ -118,7 +118,7 @@ a {
 
 .btn {
   color: #fff;
-  background-color: #b99e23;
+  background-color: #dcb55d;
   border-radius: 10px;
 }
 
@@ -353,13 +353,13 @@ button {
 */
 
 .user-data-background {
- 
+
   position: relative;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  min-height: 100vh; 
+  min-height: 100vh;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -375,6 +375,9 @@ button {
 
 /* Left side */
 .user-data-page-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: absolute;
   left: 5%;
   top: 20%;
@@ -387,7 +390,7 @@ button {
 /* Right side */
 .user-data-page-right {
   position: absolute;
-  right: 5%; 
+  right: 5%;
   top: 20%;
   background: rgba(61, 85, 82, 0.616);
   max-width: 600px;
@@ -400,23 +403,20 @@ button {
 /* Shared styles for user data items */
 .user-total-impact-data,
 .insert-data-container {
+  width: 100%;
   outline: 0;
-  background: #f2f2f2;
-  width: calc(100% - 50px);
+  background: #80aca8;
   margin: 0 auto 0 auto;
-  border: 2px solid #b99e23;;
   padding: 25px;
   box-sizing: border-box;
   font-size: 17px;
+  color: #FFFFFF;
 }
 
-.user-level,
-.user-impact,
-.logout-button, 
 .counter-submit-button,
-.time-counter-header, 
+.time-counter-header,
 .counter_button {
-  background-color: rgba(129, 172, 168, 0.616);
+  background-color: hsl(174, 21%, 59%);
   border: 0;
   box-sizing: border-box;
   color: #ffffff;
@@ -425,9 +425,7 @@ button {
   justify-content: center;
   margin-top: 40px;
   margin-bottom: 40px;
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 20px;
+  font-size: 17px;
   width: 260px;
   height: auto;
   overflow: hidden;
@@ -436,53 +434,52 @@ button {
   padding-right: 15px;
   text-align: center;
   text-decoration: none;
-  border: 2px solid #81aca8;
-  border-color: #81aca8 rgba(168, 78, 50);
   position: relative;
-
-}
-
-.user-level:before,
-.user-impact:before, 
-.logout-button:before, 
-.counter-submit-button:before,
-.time-counter-header::before,
-.counter_button:before {
-  content: '';
-  position: absolute;
-  top: -6px;
-  left: -6px;
-  right: -6px;
-  bottom: -6px;
-  border: 4px solid rgba(255, 255, 255, 0.5); 
-  border-radius: 8px;
 }
 
 .user-level {
+  background-color: hsl(174, 21%, 59%);
+  border: 0;
+  box-sizing: border-box;
+  color: #ffffff;
+  display: flex;
   align-items: center;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 5px
+  justify-content: center;
+  font-size: 17px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+  text-decoration: none;
+  position: relative;
+}
+
+
+.user-level p {
+  margin-bottom: 0;
 }
 
 .user-impact {
-
+  text-align: center;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
   align-items: center;
   margin-left: auto;
   margin-right: auto;
   margin-top: 10px;
-}
-
-@media (max-width: 768px) {
-  .user-data-page-left,
-  .user-data-page-right {
-    position: static;
-    max-width: none;
-    margin: 20px;
-  }
+  margin-bottom: 32px;
 }
 
 /* buttons */
+
+.user-level-button {
+  border: 1px solid rgba(129, 172, 168);
+  background-color: #ffffff00;
+  box-sizing: border-box;
+  color: rgba(129, 172, 168);
+  justify-content: center;
+}
+
 
 .counter_button,
 .counter-submit-button {
@@ -490,23 +487,37 @@ button {
   justify-content: center;
   justify-items: center;
   align-items: center;
-  background-color:  #b99e23;;
+  background-color: #dcb55d;
+  ;
   align-items: center;
   margin: 8px;
   padding: 8px;
   width: 200px;
   height: 40px;
   font-size: smaller;
-  
+}
 
+.user-impact-data {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
 }
 
 .logout-button {
-  max-width: fit-content;
+  background-color: #dcb55d;
+  border: 0;
+  box-sizing: border-box;
+  color: #ffffff;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+  text-decoration: none;
   font-size: smaller;
-  margin-top: 10px;
   align-items: right;
-  margin-left: auto;
+  margin-left: 0;
 }
 
 .level {
@@ -516,22 +527,20 @@ button {
 
 /* header text styling 
 */
-.total, 
+.total,
 .average,
 .event-day,
 .event-time,
 .event-location,
 .event-meeting-point {
-  color:  #a84e32;
-  text-shadow:
-  -0.5px -0.5px 0 #81aca8;
-
+  color: #FFFFFF;
 }
+
 .sandsmile,
 .impact,
 .tracker,
 .events {
-  color: #b99e23;
+  color: #dcb55d;
   text-shadow:
     -0.5px -0.5px 0 #a84e32,
     0.5px 0.5px 0 #a84e32,
@@ -542,7 +551,7 @@ button {
 /* icons 
 */
 .fa-sharp {
-  color:  #81aca8;
+  color: #81aca8;
 }
 
 /* time counter 
@@ -559,7 +568,7 @@ button {
   text-transform: uppercase;
   text-shadow: 2px #a84e32;
   opacity: 0.7;
-  font-size: 14.5px; 
+  font-size: 14.5px;
 }
 
 @keyframes typing {
@@ -571,6 +580,7 @@ button {
     width: 100%;
   }
 }
+
 .time-counter-container {
   padding-top: 0;
   justify-content: center;
@@ -590,7 +600,7 @@ button {
   display: flex;
   justify-content: center;
   border: 2px solid #81aca8;
- 
+
 }
 
 .counter-body .digit {
@@ -630,7 +640,7 @@ button {
   max-width: fit-content;
   padding: 10px;
   margin-bottom: 20px;
-  border: 1px solid #b99e23;
+  border: 1px solid #dcb55d;
   border-radius: 5px;
 }
 
@@ -685,13 +695,20 @@ button {
 */
 
 .EventCard {
-  background-color: rgba(129, 172, 168, 0.616); /* Background color */
-  border: 3px solid #b99e23; /* Border color and thickness */
-  border-radius: 3px; /* Border radius for rounded corners */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Box shadow for depth */
-  padding: 20px; /* Padding inside the box */
-  margin: 20px auto; /* Center horizontally */
-  width: 600px; /* Width of the box */
+  background-color: rgba(129, 172, 168, 0.616);
+  /* Background color */
+  border: 3px solid #dcb55d;
+  /* Border color and thickness */
+  border-radius: 3px;
+  /* Border radius for rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  /* Box shadow for depth */
+  padding: 20px;
+  /* Padding inside the box */
+  margin: 20px auto;
+  /* Center horizontally */
+  width: 600px;
+  /* Width of the box */
 }
 
 .checkbox-container {
@@ -707,7 +724,7 @@ button {
   -moz-appearance: none;
   width: 20px;
   height: 20px;
-  border: 2px solid #b99e23;
+  border: 2px solid #dcb55d;
   border-radius: 3px;
   margin-right: 10px;
   position: relative;
@@ -721,7 +738,7 @@ button {
   top: 2px;
   width: 5px;
   height: 10px;
-  border: solid #b99e23;
+  border: solid #dcb55d;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
@@ -739,7 +756,8 @@ button {
   margin: 0;
   color: #666;
 }
-=======
+
+
 /*
   donations page
 */
@@ -747,7 +765,7 @@ button {
 
 .donate-box {
   position: relative;
-  background:  #b99d2391;
+  background: #b99d2391;
   max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;
@@ -758,7 +776,8 @@ button {
   }
 }
 
-.donate-box, h5{
+.donate-box,
+h5 {
   color: #FFFFFF;
 }
 
@@ -776,7 +795,7 @@ button {
 .donate-box button {
   text-transform: uppercase;
   outline: 0;
-  background: #b99e23;
+  background: #dcb55d;
   width: 100%;
   border: 0;
   margin: 0 0 15px;
@@ -785,23 +804,24 @@ button {
   font-size: 17px;
 }
 
-.donate-box button:hover,.donate-box button:active,.donate-box button:focus {
+.donate-box button:hover,
+.donate-box button:active,
+.donate-box button:focus {
   background: rgb(168, 78, 50);
 }
 
 .ty-box {
   position: relative;
-  background:  #b99d2391;
+  background: #b99d2391;
   width: 1050px;
   margin: 0 auto 0px;
   padding: 20px 30px 10px 30px;
   color: #FFFFFF;
   font-size: 17px;
   text-align: center;
-   z-index: 1;
+  z-index: 1;
 
-  .ty-box .p{
+  .ty-box .p {
     text-align: justify;
   }
 }
-

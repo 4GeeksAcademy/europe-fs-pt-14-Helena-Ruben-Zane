@@ -24,7 +24,7 @@ export const UserLevelConnectLink = () => {
         const dataUserLevel = await responseUserLevel.json();
         const userLevel = dataUserLevel.level;
         let roleName;
-      
+
 
         switch (userLevel) {
           case 1:
@@ -42,7 +42,7 @@ export const UserLevelConnectLink = () => {
 
         setRole(roleName);
 
-        
+
         const responseStripeLink = await fetch(`${process.env.BACKEND_URL}/api/usersstripelink`, {
           headers: {
             'Authorization': `Bearer ${userToken}`
@@ -79,21 +79,22 @@ export const UserLevelConnectLink = () => {
   return (
     <>
       <div className="user-level">
-        <p className="level"> Your <span className="sandsmile"> SANDSMILE</span>: 
-        <div className="role mt-2">  {role} </div></p>
+        <p><strong>YOUR SANDSMILE ROLE:</strong> <span>{role}</span></p>
+      </div>
+      <div>
         {role === "Super User" && (
-          <button onClick={handleButtonClick}>
-            Link your account
+          <button className="user-level-button" onClick={handleButtonClick}>
+            Payment Details
           </button>
         )}
         {role === "Admin" && (
           <Link to="/admin">
-            <button >
+            <button className="user-level-button">
               Go to Admin Page
             </button>
           </Link>
         )}
-       </div >
-      </>
+      </div >
+    </>
   );
 };
