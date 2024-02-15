@@ -13,8 +13,6 @@ import { ShowUserImpact } from '../component/showUserImpact';
 
 import { NavBar } from "../component/navbar";
 import userdata_background from "../../img/userdata_background.jpg";
-export const Userdata = () => {
-
 import { TotalImpact } from '../component/TotalImpact';
 
 

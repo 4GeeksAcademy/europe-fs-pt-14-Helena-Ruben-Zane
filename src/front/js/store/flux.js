@@ -7,6 +7,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			location: [],
 			start_time: [],
 			finish_time: [],
+			manual_start_time: [],
+			manual_finish_time: [],
 			total_time: [],
 			total_days: [],
 			total_liters: [],
@@ -30,6 +32,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore()
 				setStore({ ...store, finish_time: new Date().toISOString() });
 			},
+
+			setManualStartTime: (manual_start_time) => {
+				const store = getStore()
+				setStore({ ...store, manual_start_time: manual_start_time });
+			},
+
+
+			setManualFinishTime: (manual_finish_time) => {
+				const store = getStore()
+				setStore({ ...store, manual_finish_time: manual_finish_time });
+			},
+
+			
 
 			setLiters: (value) => {
 				const store = getStore()
@@ -97,6 +112,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					if (jsonResponse["token"]) {
 						localStorage.setItem("userToken", jsonResponse["token"])
+						console.log(jsonResponse)
 						return true;
 
 					}
@@ -134,35 +150,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			start_time: async () => {
-				const url = process.env.BACKEND_URL;
-				const tokenRequirement = "/api/userdata";
-
-				try {
-					const response = await fetch(url + tokenRequirement, {
-						method: 'POST',
-						headers: {
-							'Authorization': `Bearer ${localStorage.getItem("userToken")}`,
-							'Content-Type': 'application/json',
-						},
-						body: JSON.stringify({
-							start_time: new Date().toISOString(),
-						})
-					});
-
-					if (response.status !== 200) {
-						throw new Error(`Error: ${response.status}`);
-					}
-
-					const data = await response.json();
-					console.log(data);
-					setStore({ current: data.userdata_id })
-				} catch (error) {
-					console.error(error);
-				}
+			set_user_id: async () => {
+				setStore({ current: data.userdata_id })
 			},
 
-			submitData: async (start_time, finish_time, location, liters) => {
+			submitData: async () => {
 				const url = process.env.BACKEND_URL;
 				const tokenRequirement = "/api/userdata/" + getStore().current;
 
@@ -178,6 +170,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					const response = await fetch(url + tokenRequirement, {
 						method: 'PUT',
+						mode: 'cors',
 						headers: {
 							'Authorization': `Bearer ${localStorage.getItem("userToken")}`,
 							'Content-Type': 'application/json',
@@ -199,6 +192,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("An error occurred: ", error);
 				}
 			},
+
 
 			submit_manual_data: async () => {
 				const url = process.env.BACKEND_URL;

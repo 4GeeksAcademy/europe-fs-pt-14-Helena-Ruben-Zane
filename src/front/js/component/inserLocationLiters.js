@@ -1,6 +1,5 @@
 import React, { useContext, useState, useCallback } from "react";
 import { Context } from "../store/appContext";
-import debounce from "lodash.debounce";
 
 export const InsertLocationLiters = () => {
     const { store, actions } = useContext(Context);

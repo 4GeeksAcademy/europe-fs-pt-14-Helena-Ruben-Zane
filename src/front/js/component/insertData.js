@@ -5,18 +5,18 @@ export const InsertData = () => {
     const { store, actions } = useContext(Context);
 
     if (store.start_time === null) {
-        actions.setStartTime([]);
+        actions.setManualStartTime([]);
     }
     if (store.finish_time === null) {
-        actions.setFinishTime([]);
+        actions.setManualFinishTime([]);
     };
 
     const handleStartTimeChange = (e) => {
-        actions.setStartTime(e.target.value);
+        actions.setManualStartTime(e.target.value);
     };
 
     const handleFinishTimeChange = (e) => {
-        actions.setFinishTime(e.target.value);
+        actions.setManualFinishTime(e.target.value);
     };
 
     return (
