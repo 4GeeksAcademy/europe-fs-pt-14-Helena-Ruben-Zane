@@ -55,7 +55,7 @@ export const Userdata = () => {
           </div>
           <div className="user-data-page-right">
             <TimeCounter />
-            <InsertData />
+          
             <InsertLocationLiters />
             <SubmitButton />
           </div>

@@ -144,7 +144,7 @@ def create_payment_intent():
 
 
 @api.route ("/userdata", methods=["POST"]) 
-
+@jwt_required()
 def handle_userdata():
 
     data = request.json
@@ -203,7 +203,6 @@ def update_userdata(id):
         return jsonify({"error": str(e)}), 500
     finally:
         db.session.close()
-    
 
 @api.route ("/userdata/getimpact", methods=['GET'])
 @jwt_required()

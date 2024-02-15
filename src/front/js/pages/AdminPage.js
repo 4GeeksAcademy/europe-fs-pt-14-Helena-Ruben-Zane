@@ -145,7 +145,7 @@ export const AdminPage = () => {
         <h3 className="upgrade mt-4 ms-4 text-left">Upgrade user level</h3>
 
         <div className="infoblock row align-items-start pt-4 px-2">
-          <p className="mb-1 text-muted">Select a user email to promote for the next level</p>
+          <p className="mb-1 text-muted">Select a user email to promote for the next level, and insert Stripe Connect Link</p>
           <div className="col">
             <div className="dropdown">
               <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -165,7 +165,7 @@ export const AdminPage = () => {
 
           <div className="col">
             <div className="input-group ms-2 pt-3">
-              <span className="input-group-text" id="inputGroup-sizing-default span-size">Level</span>
+              <span className="input-group-text" id="inputGroup-sizing-default span-size">Link</span>
               <input type="text" className="form-control input-size" value={link} onChange={e => setLink(e.target.value)} />
             </div>
           </div>
