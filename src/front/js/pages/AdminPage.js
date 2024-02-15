@@ -205,9 +205,9 @@ export const AdminPage = () => {
       </div>
       
       <Link to="/userdata">
-        <button className="btn btn-success px-4 py-2"  >
-          Return to User Page
-        </button>
+      <div class="d-flex justify-content-center">
+  <button className="btn btn-success px-4 py-2">Return to User Page</button>
+</div>
       </Link> 
     </div>
   );
