@@ -38,7 +38,7 @@ export const Home = () => {
 				<h2><strong>ABOUT OUR CLEANERS</strong></h2>
 				<p>
 				After logging in or register, you have access to your personal page where you can include and track your activity: <strong>Time</strong> Through a timer that is turned on and off when the activity begins and ends; <strong>Location</strong> Selection of the beach where they are; <strong>Amount collected</strong> Indication of the amount in liters that has been collected.				</p>
-				<p>Cleaners who have been registered for more than half a year, with monthly registered activity and who have attended at least once an event organized by the platform are considered Cleaners Plus <strong>"Smilers". With this upgrade you receive 5% of donations.</strong>
+				<p>Cleaners who have been registered for more than half a year, with at least 1000 liters collected and who have attended at least once an event organized by the platform are considered Cleaners Plus <strong>"Smilers". With this upgrade you receive 5% of donations.</strong>
 				</p>
 			</div>	
 			<TotalImpact />

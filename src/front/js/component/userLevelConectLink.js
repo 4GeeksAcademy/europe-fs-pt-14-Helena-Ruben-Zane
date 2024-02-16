@@ -10,7 +10,7 @@ export const UserLevelConnectLink = () => {
     const fetchUserLevelAndStripeLink = async () => {
       try {
         const userToken = localStorage.getItem('userToken');
-        // Fetch user level
+    
         const responseUserLevel = await fetch(`${process.env.BACKEND_URL}/api/userslevel`, {
           headers: {
             'Authorization': `Bearer ${userToken}`
@@ -70,7 +70,7 @@ export const UserLevelConnectLink = () => {
 
   const handleButtonClick = () => {
     if (stripeLink) {
-      window.location.href = stripeLink;
+      window.open(stripeLink, '_blank', 'noopener,noreferrer');
     } else {
       console.log('No Stripe link available');
     }
@@ -79,15 +79,15 @@ export const UserLevelConnectLink = () => {
   return (
     <>
       <div className="user-level">
-        <p><strong>YOUR SANDSMILE ROLE: </strong>
-        <span>{role}</span></p>
-      </div>
-      <div>
-        {role === "SMILER" && (
-          <button className="user-level-button" onClick={handleButtonClick}>
-            Payment Details
-          </button>
-        )}
+      <p><strong>YOUR SANDSMILE ROLE: </strong>
+      <span>{role}</span></p>
+    </div>
+    <div>
+      {role === "SMILER" && (
+        <button className="user-level-button" onClick={handleButtonClick}>
+          Payment Details
+        </button>
+      )}
         {role === "ADMIN" && (
           <Link to="/admin">
             <button className="user-level-button">
