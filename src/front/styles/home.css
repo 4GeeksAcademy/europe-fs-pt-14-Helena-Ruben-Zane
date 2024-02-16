@@ -2,6 +2,11 @@ body {
   font-family: 'Atkinson Hyperlegible', sans-serif;
 }
 
+.btn {
+  margin: 0;
+  border: 0;
+}
+
 .home {
   position: relative;
 }
@@ -10,7 +15,7 @@ body {
     home nav bar
 */
 .nav {
-  height: 80px;
+  height: 100px;
   min-width: 100%;
   margin-top: 25px;
   position: absolute;
@@ -28,14 +33,13 @@ body {
 
 .nav__logo,
 a {
-  height: 120%;
+  height: 100%;
 }
 
 .nav__btn {
   align-items: center;
   background-color: rgba(129, 172, 168, 0.616);
   border: 0;
-  border-radius: 10px;
   box-sizing: border-box;
   color: #ffffff;
   cursor: pointer;
@@ -119,7 +123,7 @@ a {
 .btn {
   color: #fff;
   background-color: #dcb55d;
-  border-radius: 10px;
+  border-radius: 0px;
 }
 
 .btn:hover,
@@ -158,9 +162,9 @@ a {
   align-items: center;
   justify-content: center;
   background: rgb(129, 172, 168);
-  border-radius: 20px;
   color: white;
   font-size: 20px;
+  border-radius: 20px;
 }
 
 .info__img {
@@ -199,14 +203,16 @@ button {
   object-fit: cover;
 }
 
+
 /*
   login/signup
 */
 .box {
+  position: relative;
   background: rgba(61, 85, 82, 0.616);
-  max-width: 360px;
-  margin: 0 auto 100px;
-  padding: 45px;
+  max-width: 300px;
+  margin: auto;
+  padding: 8px 15px 44px 15px;
   text-align: center;
   z-index: 1;
 }
@@ -235,12 +241,14 @@ button {
 .login-form {
   position: relative;
   background: rgba(61, 85, 82, 0.616);
-  max-width: 360px;
-  margin: 0 auto 100px;
-  padding: 45px;
+  max-width: 300px;
+  margin: auto;
+  padding: 54px 15px 44px 15px;
   text-align: center;
   z-index: 1;
 }
+
+
 
 .login-form input {
   outline: 0;
@@ -277,9 +285,9 @@ button {
 .signup-form {
   position: relative;
   background: rgba(61, 85, 82, 0.616);
-  max-width: 360px;
-  margin: 0 auto 100px;
-  padding: 45px;
+  max-width: 300px;
+  margin: auto;
+  padding: 54px 15px 44px 15px;
   text-align: center;
   z-index: 1;
 }
@@ -373,30 +381,42 @@ button {
   position: relative;
 }
 
+.user-data-group-box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
 /* Left side */
 .user-data-page-left {
+  min-height: 550px;
+  min-width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: absolute;
+  justify-content: center;
   left: 5%;
   top: 20%;
   background: rgba(61, 85, 82, 0.616);
-  padding: 20px;
-  max-width: 400px;
+  padding: 32px;
+  max-width: 300px;
   z-index: 1;
 }
 
 /* Right side */
 .user-data-page-right {
-  position: absolute;
+  min-height: 550px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   right: 5%;
   top: 20%;
   background: rgba(61, 85, 82, 0.616);
   max-width: 600px;
   max-height: 600px;
-  padding: 20px;
-  padding-top: 2px;
+  padding: 32px;
   z-index: 1;
 }
 
@@ -406,7 +426,7 @@ button {
   width: 100%;
   outline: 0;
   background: #80aca8;
-  margin: 0 auto 0 auto;
+  margin: 0 auto 25px auto;
   padding: 25px;
   box-sizing: border-box;
   font-size: 17px;
@@ -414,9 +434,8 @@ button {
 }
 
 .counter-submit-button,
-.time-counter-header,
 .counter_button {
-  background-color: hsl(174, 21%, 59%);
+  background-color: rgb(77, 156, 148);
   border: 0;
   box-sizing: border-box;
   color: #ffffff;
@@ -437,8 +456,9 @@ button {
   position: relative;
 }
 
-.user-level {
-  background-color: hsl(174, 21%, 59%);
+
+.time-counter-header {
+  background-color: rgb(77, 156, 148);
   border: 0;
   box-sizing: border-box;
   color: #ffffff;
@@ -446,13 +466,33 @@ button {
   align-items: center;
   justify-content: center;
   font-size: 17px;
-  padding-left: 15px;
-  padding-right: 15px;
+  overflow: hidden;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  position: relative;
+  margin: 0;
+}
+
+.time-counter-cta {
+  margin: 48px 0 16px 0;
+}
+
+.user-level {
+  width: 100%;
+  background-color: rgb(77, 156, 148);
+  border: 0;
+  box-sizing: border-box;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  padding: 15px;
   text-align: center;
   text-decoration: none;
   position: relative;
 }
-
 
 .user-level p {
   margin-bottom: 0;
@@ -470,31 +510,37 @@ button {
   margin-bottom: 32px;
 }
 
+.user-data-group {}
+
 /* buttons */
 
 .user-level-button {
-  border: 1px solid rgba(129, 172, 168);
-  background-color: #ffffff00;
+  border: 1px solid rgb(77, 156, 148);
+  background-color: rgba(77, 156, 148, 0.158);
   box-sizing: border-box;
-  color: rgba(129, 172, 168);
+  color: #FFFFFF;
   justify-content: center;
+  font-size: 17PX;
 }
 
+.user-level-button:hover,
+.user-level-button:active {
+  background-color: rgb(77, 156, 148);
+}
 
-.counter_button,
 .counter-submit-button {
   display: flex;
   justify-content: center;
   justify-items: center;
   align-items: center;
   background-color: #dcb55d;
-  ;
-  align-items: center;
   margin: 8px;
   padding: 8px;
   width: 200px;
   height: 40px;
   font-size: smaller;
+  align-items: right;
+  box-sizing: border-box;
 }
 
 .user-impact-data {
@@ -517,7 +563,12 @@ button {
   text-decoration: none;
   font-size: smaller;
   align-items: right;
-  margin-left: 0;
+  margin: 0;
+}
+
+.logout-button:hover,
+.logout-button:active {
+  background-color: rgb(168, 78, 50);
 }
 
 .level {
@@ -538,8 +589,7 @@ button {
 
 .sandsmile,
 .impact,
-.tracker,
-.events {
+.tracker {
   color: #dcb55d;
   text-shadow:
     -0.5px -0.5px 0 #a84e32,
@@ -563,7 +613,6 @@ button {
   white-space: nowrap;
   border-right: 1px solid;
   animation: typing 6s steps(80, end) forwards;
-  padding-bottom: 2%;
   color: #f2f2f2;
   text-transform: uppercase;
   text-shadow: 2px #a84e32;
@@ -582,13 +631,13 @@ button {
 }
 
 .time-counter-container {
-  padding-top: 0;
+  width: 100%;
+  padding: 0;
   justify-content: center;
 }
 
 .digit {
   background-color: #f2f2f2;
-  color: rgba(129, 172, 168, 0.616);
   border-radius: 15%;
   max-width: fit-content;
   align-items: center;
@@ -596,43 +645,48 @@ button {
   color: #ffffff;
   text-align: center;
   text-decoration: dotted;
-  padding: 14px;
+  padding: 16px;
+  margin: 0 4px 0 4px;
   display: flex;
   justify-content: center;
-  border: 2px solid #81aca8;
+}
 
+.counter-body {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: #FFFFFF;
+  margin: 48px 0 32px;
 }
 
 .counter-body .digit {
-  background-color: rgba(129, 172, 168, 0.2);
+  background-color: rgba(129, 172, 168, 0.616);
   padding: 18px 18px;
   position: relative;
-  border: 2px solid #81aca8;
+  border: 2px solid rgb(77, 156, 148);
+}
+
+.counter-button {
+  margin: 0;
+  border: 0;
+}
+
+.form-floating label {
+  padding: 0;
+}
+
+.form-floating input {
+  float: right;
+
 
 }
 
-.counter-body .digit:before {
-  content: '';
-  position: absolute;
-  top: -6px;
-  left: -6px;
-  right: -6px;
-  bottom: -6px;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  border-radius: 5px;
-}
-
-
-.card-footer,
-.buttons {
-  background-color: transparent;
-}
-
-/* insert data
+/* 
+    insert data
 */
 
 .insert-data-container {
-
   background-color: rgba(129, 172, 168, 0.616);
   border: 0;
   border-radius: 10px;
@@ -690,32 +744,48 @@ button {
   padding: 20px;
 }
 
+.form-floating input {
+  width: 75%;
+}
+
+.user-location {
+  width: 100%;
+  background: rgb(129, 172, 168);
+  color: #FFFFFF;
+  margin-bottom: 16px;
+  border-radius: 0;
+}
+
+.user-location-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-location-group button {
+  width: fit-content;
+}
 
 /* event and checkbox 
 */
 
 .EventCard {
-  background-color: rgba(129, 172, 168, 0.616);
-  /* Background color */
-  border: 3px solid #dcb55d;
-  /* Border color and thickness */
-  border-radius: 3px;
-  /* Border radius for rounded corners */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  /* Box shadow for depth */
+  background-color: rgb(77, 156, 148);
   padding: 20px;
-  /* Padding inside the box */
   margin: 20px auto;
-  /* Center horizontally */
   width: 600px;
-  /* Width of the box */
+  color: #FFFFFF;
+  border: 7px solid rgba(129, 172, 168, 0.616);
+}
+
+.EventCard i {
+  color: #dcb55d;
 }
 
 .checkbox-container {
   display: flex;
   align-items: center;
   cursor: pointer;
-  font-family: Arial, sans-serif;
 }
 
 .checkbox-container input[type="checkbox"] {
@@ -749,12 +819,14 @@ button {
 
 .label-text {
   margin-right: 10px;
-  color: #000;
+  color: #dcb55d;
+  font-size: 20px;
 }
 
 .clicks-count {
   margin: 0;
-  color: #666;
+  color: #FFFFFF;
+  font-size: 12px;
 }
 
 
@@ -765,7 +837,7 @@ button {
 
 .donate-box {
   position: relative;
-  background: #b99d2391;
+  background: #b99d23a3;
   max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;

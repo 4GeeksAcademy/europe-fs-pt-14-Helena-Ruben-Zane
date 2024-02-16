@@ -6,8 +6,8 @@ export const TimeCounter = () => {
   const [timer, setTime] = useState(0)
   const [active, setActive] = useState(false)
   const [buttonText, setButtonText] = useState("Begin tracking")
-  const {store, actions} = useContext (Context)
-  const [pending, setPending] = useState (false)
+  const { store, actions } = useContext(Context)
+  const [pending, setPending] = useState(false)
   const clockHandRef = useRef(null);
   useEffect(() => {
     let intervalId;
@@ -25,9 +25,9 @@ export const TimeCounter = () => {
 
   const startStop = () => {
     setActive((prevActive) => !prevActive);
-    setButtonText((prevText) => (prevText === "Begin tracking" ? "Stop tracking" : "Begin tracking")) 
-    if (!pending) actions.start_time() 
-    setPending (true)
+    setButtonText((prevText) => (prevText === "Begin tracking" ? "Stop tracking" : "Begin tracking"))
+    if (!pending) actions.start_time()
+    setPending(true)
   };
 
   const hours = Math.floor(timer / 3600);
@@ -36,8 +36,8 @@ export const TimeCounter = () => {
 
   return (
     <div className="time-counter-container container-fluid">
-      <h4 className="time-counter-header"> Impact &nbsp; <span className="tracker"> TRACKER</span> </h4>
-      <div className="counter-body d-flex flex-row  fs-1 text-light" style={{ height: "5rem", justifyContent: "center"}}>
+      <h4 className="time-counter-header"><strong>IMPACT TRACKER</strong></h4>
+      <div className="counter-body fs-1">
         <div className="digit col-sm-1 col-md-1 col-lg-1">
           {Math.floor(hours / 10) % 10}
         </div>
@@ -64,14 +64,12 @@ export const TimeCounter = () => {
         </div>
       </div>
       <div className="counter-footer">
-        <div className="typing-animation mt-4">
+        <div className="time-counter-cta typing-animation">
           <span>Every second you spent collecting the waste, does matter...</span>
         </div>
-        <div className="counter-button">
-          <button type="buttonStart" className="btn btn-info btn-sm me-2" onClick={startStop}>
-            {buttonText}
-          </button>
-        </div>
+        <button type="buttonStart" className="counter-button btn btn-info btn-sm me-2" onClick={startStop}>
+          {buttonText}
+        </button>
       </div>
     </div>
   );

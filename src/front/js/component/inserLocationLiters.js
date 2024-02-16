@@ -11,12 +11,12 @@ export const InsertLocationLiters = () => {
         debounce(() => {
             try {
                 const response = actions.submitData(undefined, undefined, location, liters);
-                
+
             } catch (error) {
                 console.error(error);
             }
-        },  500), 
-        [location, liters] 
+        }, 500),
+        [location, liters]
     );
 
     const handleBlur = () => {
@@ -24,30 +24,27 @@ export const InsertLocationLiters = () => {
     };
 
     return (
-        
-
-            <div className="card container-fluid col-sm-8 col-md-8 col-lg-8 bg-body-tertiary text-center p-1">
+        <div className="user-location card container-fluid col-sm-8 col-md-8 col-lg-8 bg-body-tertiary text-center p-1 mt-5">
             <form className="form-floating">
-            <label htmlFor="location">Location:</label>
-                        <input
-                            id="location"
-                            type="text"
-                            value={location}
-                            onChange={(e) => setLocation(e.target.value)}
-                            onBlur={handleBlur}
-                        />
+                <label htmlFor="location"> LOCATION</label>
+                <input
+                    id="location"
+                    type="text"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    onBlur={handleBlur}
+                />
             </form>
             <form className="form-floating">
-            <label htmlFor="liters">Liters:</label>
-                        <input
-                            id="liters"
-                            type="number"
-                            value={liters}
-                            onChange={(e) => setLiters(e.target.value)}
-                            onBlur={handleBlur}
-                        />
+                <label htmlFor="liters"> LITERS</label>
+                <input
+                    id="liters"
+                    type="number"
+                    value={liters}
+                    onChange={(e) => setLiters(e.target.value)}
+                    onBlur={handleBlur}
+                />
             </form>
-            </div>
-            );
-    
+        </div>
+    );
 };

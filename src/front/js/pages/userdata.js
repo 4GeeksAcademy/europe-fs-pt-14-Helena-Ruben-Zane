@@ -41,11 +41,11 @@ export const Userdata = () => {
 
   return (
 
-    <div className="user-data-page">
-      <img className="hero__image" src={userdata_background} />
+    <div>
       <NavBar />
-      <div className="user-data-container">
-        <div className="user-data-page-sides d-flex row flex-sm-column">
+      <div className="hero ">
+        <img className="hero__image" src={userdata_background} />
+        <div className='user-data-group-box'>
           <div className="user-data-page-left">
             <UserLevelConnectLink />
             <div className="user-impact-data">
@@ -55,14 +55,15 @@ export const Userdata = () => {
           </div>
           <div className="user-data-page-right">
             <TimeCounter />
-          
-            <InsertLocationLiters />
-            <SubmitButton />
+            <div className="user-location-group">
+              <InsertLocationLiters />
+              <SubmitButton />
+            </div>
           </div>
         </div>
-        <div className="user-data-events">
-          <EventInfoBox />
-        </div>
+      </div>
+      <div>
+        <EventInfoBox />
       </div>
     </div>
   )

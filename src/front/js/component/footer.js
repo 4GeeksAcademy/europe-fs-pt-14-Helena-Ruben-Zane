@@ -5,7 +5,6 @@ export const Footer = () => (
 		<p>
 		Copyright SandSmile © 2024. All rights reserved.
 		</p>
-		
 	</footer>
 );
 
