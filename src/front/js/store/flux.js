@@ -1,3 +1,4 @@
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -6,6 +7,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			location: [],
 			start_time: [],
 			finish_time: [],
+			manual_start_time: [],
+			manual_finish_time: [],
 			total_time: [],
 			total_days: [],
 			total_liters: [],
@@ -13,84 +16,120 @@ const getState = ({ getStore, getActions, setStore }) => {
 			average_liters: [],
 			total_users: [],
 			total_impact_time: [],
-			total_impact_liters: []
-		
+			total_impact_liters: [],
+			users: []
+
+
 		},
 		actions: {
-	
-		
-			signupNewUser: async (formSignup)=>{
-				const url=process.env.BACKEND_URL;
-				const signupRequirement="/api/signup"
-				try{
-					
-					const response= await fetch(url+signupRequirement,{
-						method:"POST",
-						body: JSON.stringify(formSignup),
-						headers:{
-							'Content-type': 'application/json'
-						},					
-					})
-	
-					if (response.ok){
-						const jsonResponse= await response.json()
-						console.log(jsonResponse)
-						const store = getStore()
-						setStore({...store,messageToShowAlert:jsonResponse})
-					}
-				
-					else{
-						const jsonResponse=await response.json()
-						console.log(jsonResponse)
-	
-					}
-	
-				}
-	
-				catch(e){
-					
-					console.log("An error has occured",e)
-					
-				}
+
+			setStartTime: (start_time) => {
+				const store = getStore()
+				setStore({ ...store, start_time: new Date().toISOString() });
 			},
+
+
+			setFinishTime: (finish_time) => {
+				const store = getStore()
+				setStore({ ...store, finish_time: new Date().toISOString() });
+			},
+
+			setManualStartTime: (manual_start_time) => {
+				const store = getStore()
+				setStore({ ...store, manual_start_time: manual_start_time });
+			},
+
+
+			setManualFinishTime: (manual_finish_time) => {
+				const store = getStore()
+				setStore({ ...store, manual_finish_time: manual_finish_time });
+			},
+
 			
-			loginUserExisting:async({ email, password })=>{
-				const url= process.env.BACKEND_URL;
-				const loginRequirement="/api/login"
-				try{
-					const response = await fetch(url+loginRequirement, {
-						method:'POST',
-						headers:{
+
+			setLiters: (value) => {
+				const store = getStore()
+				setStore({ ...store, liters: value })
+			},
+
+			setLocation: (value) => {
+				const store = getStore()
+				setStore({ ...store, location: value })
+			},
+
+
+			signupNewUser: async (formSignup) => {
+				const url = process.env.BACKEND_URL;
+				const signupRequirement = "/api/signup"
+				try {
+
+					const response = await fetch(url + signupRequirement, {
+						method: "POST",
+						body: JSON.stringify(formSignup),
+						headers: {
 							'Content-type': 'application/json'
 						},
-						body:JSON.stringify({
+					})
+
+					if (response.ok) {
+						const jsonResponse = await response.json()
+						console.log(jsonResponse)
+						const store = getStore()
+						setStore({ ...store, messageToShowAlert: jsonResponse })
+					}
+
+					else {
+						const jsonResponse = await response.json()
+						console.log(jsonResponse)
+
+					}
+				}
+
+				catch (e) {
+
+					console.log("An error has occured", e)
+
+				}
+			},
+
+			loginUserExisting: async ({ email, password }) => {
+				const url = process.env.BACKEND_URL;
+				const loginRequirement = "/api/login"
+				try {
+					const response = await fetch(url + loginRequirement, {
+						method: 'POST',
+						headers: {
+							'Content-type': 'application/json'
+						},
+						body: JSON.stringify({
 							email,
 							password
 						})
 					});
-					
-					if(response.status !==200) return false	
-						
-					const jsonResponse= await response.json()
-	
-					if (jsonResponse["token"]){
+
+					if (response.status !== 200) return false
+
+					const jsonResponse = await response.json()
+
+					if (jsonResponse["token"]) {
 						localStorage.setItem("userToken", jsonResponse["token"])
+						console.log(jsonResponse)
 						return true;
-	
+
 					}
 					return false;
-						
+
 				}
-			
-				catch(e){
-							console.log("An error was occurred, check it out!",e)
+
+				catch (e) {
+					console.log("An error was occurred, check it out!", e)
 				}
 			},
-	
+
 			getInformationOfToken: async () => {
 				const url = process.env.BACKEND_URL;
 				const tokenRequirement = "/api/userdata";
-			 
+
 				try {
 					const response = await fetch(url + tokenRequirement, {
 						method: 'GET',
@@ -98,13 +137,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 							'Authorization': `Bearer ${localStorage.getItem("userToken")}`
 						}
 					});
-			 
+
 					if (response.status !== 200) {
 						throw new Error(`Error: ${response.status}`);
 					}
-			 
+
 					const jsonResponse = await response.json();
-			 
+
 					return jsonResponse;
 
 				} catch (error) {
@@ -112,10 +151,54 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			start_time: async () => {
+			set_user_id: async () => {
+				setStore({ current: data.userdata_id })
+			},
+
+			submitData: async () => {
+				const url = process.env.BACKEND_URL;
+				const tokenRequirement = "/api/userdata/" + getStore().current;
+
+				const requestBody = {
+							start_time: getStore().start_time,
+							finish_time: getStore().finish_time,
+							location: getStore().location,
+							liters: getStore().liters,
+				};
+				console.log(getStore().start_time, getStore().finish_time, getStore().location, getStore().liters)
+
+
+				try {
+					const response = await fetch(url + tokenRequirement, {
+						method: 'PUT',
+						mode: 'cors',
+						headers: {
+							'Authorization': `Bearer ${localStorage.getItem("userToken")}`,
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(requestBody)
+
+					});
+
+
+					const jsonResponse = await response.json();
+					if (response.status !== 200) {
+						throw new Error(`Error: ${response.status}`);
+					}
+					return jsonResponse;
+
+				}
+
+				catch (error) {
+					console.error("An error occurred: ", error);
+				}
+			},
+
+
+			submit_manual_data: async () => {
 				const url = process.env.BACKEND_URL;
 				const tokenRequirement = "/api/userdata";
-
+				
 				try {
 					const response = await fetch(url + tokenRequirement, {
 						method: 'POST',
@@ -124,78 +207,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 							'Content-Type': 'application/json',
 						},
 						body: JSON.stringify({
-							start_time: new Date().toISOString(),
+							start_time: getStore().start_time,
+							finish_time: getStore().finish_time,
+							location: getStore().location,
+							liters: getStore().liters,
+							status: "completed"
 						})
 					});
 
-					if (response.status !== 200) {
-						throw new Error(`Error: ${response.status}`);
-					}
-
-					const data = await response.json();
-					console.log(data);
-					setStore({ current: data.userdata_id })
-				} catch (error) {
-					console.error(error);
-				}
-			},
-
-			submitData: async (start_time, finish_time, location, liters) => {
-				const url = process.env.BACKEND_URL;
-				const tokenRequirement = "/api/userdata/" + getStore().current;
-
-				const requestBody = {
-					finish_time: new Date().toISOString(),
-					location: location,
-					liters: liters
-				};
-
-				if (start_time !== 'pending') {
-					requestBody.start_time = start_time;
-				}
-
-				try {
-					const response = await fetch(url + tokenRequirement, {
-						method: 'PUT',
-						headers: {
-							'Authorization': `Bearer ${localStorage.getItem("userToken")}`,
-							'Content-Type': 'application/json',
-						},
-						body: JSON.stringify(requestBody)
-
-					});
-			
-
 					const jsonResponse = await response.json();
+
 					if (response.status !== 200) {
 						throw new Error(`Error: ${response.status}`);
 					}
+
 					return jsonResponse;
-
-				}
-
-					catch(error) {
+				} catch (error) {
 					console.error("An error occurred: ", error);
 				}
+
 			},
-		
-
-			setStartTime: (start_time) => {
-				const store = getStore()
-				const currentDate = datetime.now ()
-				setStore({ ...store, start_time: currentDate });
-		},
-		
-
-		setFinishTime: (finish_time) => {
-			const store = getStore()
-			const finishTime = datetime.now ()
-			setStore({ ...store, finish_time: finishTime });
-		},
-
-		
-		
-		
 
 			getUserImpact: async () => {
 				const url = process.env.BACKEND_URL;
@@ -258,11 +289,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.error("An error occurred: ", error)
 				}
-			}
-		}
-
-	}
+			},
 
 }
 
-export default getState;
+
+	}
+};
+
+	export default getState;

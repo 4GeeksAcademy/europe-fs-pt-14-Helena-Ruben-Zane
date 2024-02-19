@@ -16,25 +16,23 @@ export const InsertData = () => {
                     <li>
                         <input
                             type="datetime-local"
-                            id="collecting_time"
+                            id="start_time"
                             className="form-control"
                             aria-describedby="button-addon2"
-                            value={store.start_time}
-                            onChange={(e) => actions.setStartTime(e.target.value)}
+                            onChange={e => handleStartTimeChange(e)}
+
                         />
                     </li>
                     <li>
                         <input
                             type="datetime-local"
-                            id="complete_collecting_time"
+                            id="finish_time"
                             className="form-control"
                             aria-describedby="button-addon2"
-                            value={store.finish_time}
-                            onChange={(e) => actions.setFinishTime(e.target.value)}
+                            onChange={e => handleFinishTimeChange(e)}
+
                         />
                     </li>
-                
-            
                 </ul>
             </div>
 

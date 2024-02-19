@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { Context } from "../store/appContext";
-import { SubmitButton } from "./submitButton";
 
 export const TimeCounter = () => {
   const [timer, setTime] = useState(0)
   const [active, setActive] = useState(false)
-  const [buttonText, setButtonText] = useState("Begin tracking")
+
   const { store, actions } = useContext(Context)
   const [pending, setPending] = useState(false)
   const clockHandRef = useRef(null);
+
   useEffect(() => {
     let intervalId;
 
@@ -23,12 +23,19 @@ export const TimeCounter = () => {
     };
   }, [timer, active, setTime]);
 
-  const startStop = () => {
-    setActive((prevActive) => !prevActive);
-    setButtonText((prevText) => (prevText === "Begin tracking" ? "Stop tracking" : "Begin tracking"))
-    if (!pending) actions.start_time()
+  const start = () => {
+    setActive(prevActive => !prevActive);
+    actions.setStartTime()
+    actions.set_user_id()
     setPending(true)
-  };
+  }
+
+  const stop = () => {
+    setActive(prevActive => !prevActive);
+    actions.setFinishTime()
+    setPending(false)
+  }
+  console.log(actions.setFinishTime)
 
   const hours = Math.floor(timer / 3600);
   const minutes = Math.floor(timer % 3600 / 60);
@@ -67,9 +74,14 @@ export const TimeCounter = () => {
         <div className="time-counter-cta typing-animation">
           <span>Every second you spent collecting the waste, does matter...</span>
         </div>
-        <button type="buttonStart" className="counter-button btn btn-info btn-sm me-2" onClick={startStop}>
-          {buttonText}
-        </button>
+        <div className="counter-button">
+
+          {!pending && <button type="buttonStart" className="counter-button btn btn-info btn-sm me-2" onClick={start}>
+            "Begin"
+          </button>} {pending && <button type="buttonStart" className="counter-button btn btn-info btn-sm me-2" onClick={stop}>
+            "Stop "
+          </button>}
+        </div>
       </div>
     </div>
   );
