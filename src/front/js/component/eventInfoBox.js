@@ -68,7 +68,8 @@ export const EventInfoBox = () => {
 
     return (
         <div className="EventCard">
-            <h3> Upcoming <span className="events"> EVENTS:</span></h3>
+            <h3> UPCOMING <strong> EVENTS:</strong></h3>
+            <br></br>
             <p>
                 <i className="fa-sharp fa-regular fa-calendar-days"></i> &nbsp;
                 <span className="event-day">DAY:</span> {eventDetails.day}</p>
@@ -83,8 +84,8 @@ export const EventInfoBox = () => {
                 <span className="event-meeting-point">MEETING POINT:</span> {eventDetails.meeting_point}</p>
             <label className="checkbox-container">
                 <input type="checkbox" id="myCheckbox" name="myCheckbox" onChange={handleCheckboxChange} checked={isChecked} />
-                <span className="label-text">Count me in</span>
-                <p className="clicks-count ms-4">Smilers in: {clicksCount}</p>
+                <span className="label-text"><strong>COUNT ME IN!</strong></span>
+                <p className="clicks-count ms-4">SANDSMILERS IN: {clicksCount}</p>
             </label>
         </div>
     );

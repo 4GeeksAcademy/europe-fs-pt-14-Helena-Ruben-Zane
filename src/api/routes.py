@@ -1,21 +1,17 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from functools import wraps
-from xml.dom import UserDataHandler
-import json
-import resource
-from flask import Flask, request, jsonify, url_for, Blueprint, abort
-import jwt
+
+from flask import request, jsonify, Blueprint
 from api.models import db, User, UserData, Event
-from api.utils import   admin_required, get_hash
+from api.utils import  get_hash
 from flask_cors import CORS
-from flask_jwt_extended import JWTManager, create_access_token
+from flask_jwt_extended import create_access_token
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_jwt_identity
 import os
 import stripe
-from datetime import datetime, timedelta
+from datetime import datetime
 from flask import current_app
 
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
@@ -32,17 +28,7 @@ api = Blueprint('api', __name__)
 
 
 # Allow CORS requests to this API
-CORS(api)
-
-
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
-
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
-
-    return jsonify(response_body), 200
+CORS(api,origins='*')
 
 @api.route('/signup', methods=['POST'])
 def create_user():
@@ -74,6 +60,7 @@ def login_user():
     token = create_access_token(identity={'email': email} )
     return jsonify(token=token)
 
+
 @api.route("/private", methods=["GET"])
 @jwt_required()
 def protected():
@@ -81,10 +68,12 @@ def protected():
     current_user = get_jwt_identity()
     return jsonify(logged_in_as=current_user), 200
 
+
 @api.route("/get-hash", methods=["POST"])
 def handle_get_hash():
     to_hash = request.json.get("string")
     return get_hash(to_hash)
+
 
 @api.route('/users', methods=['GET'])
 def handle_get_users():
@@ -106,6 +95,7 @@ def handle_get_users():
 
    return jsonify(response_body), 200
 
+
 @api.route('/users', methods=['DELETE'])
 def delete_all_users():
         all_users = User.query.all()
@@ -121,7 +111,7 @@ def get_config():
         'publishableKey': os.getenv('STRIPE_PUBLISHABLE_KEY'),
     })
 
-from flask import request
+
 
 @api.route("/create-payment-intent", methods=["POST"])
 def create_payment_intent():
@@ -144,7 +134,7 @@ def create_payment_intent():
 
 
 @api.route ("/userdata", methods=["POST"]) 
-
+@jwt_required()
 def handle_userdata():
 
     data = request.json
@@ -170,6 +160,7 @@ def handle_userdata():
     finally:
         db.session.close()
         
+
 @api.route ("/userdata/<int:id>", methods=["PUT"]) 
 @jwt_required()
 def update_userdata(id):
@@ -203,7 +194,7 @@ def update_userdata(id):
         return jsonify({"error": str(e)}), 500
     finally:
         db.session.close()
-    
+
 
 @api.route ("/userdata/getimpact", methods=['GET'])
 @jwt_required()
@@ -253,40 +244,41 @@ def getimpact_userdata():
     finally:
         db.session.close()
 
-@api.route ("/totalimpact",  methods=['GET'])
-def total_impact():
-    all_users = UserData.query.all()
-    total_users = len(all_users)
-    total_impact_time = datetime.now () - datetime.now ()
-    total_impact_liters = 0
 
-    try: 
-        if not all_users:
-            return jsonify({"message": "No user data available"}), 404
+@api.route("/totalimpact", methods=['GET'])
+def total_impact():
+    total_users = User.query.count()
+    all_user_data = UserData.query.all()
+    total_impact_time = datetime.now() - datetime.now()
+    total_impact_liters =  0
+
+    try:   
+        if total_users ==  0 or not all_user_data:
+            return jsonify({"message": "No user data available"}),  404
         else:
             aux = []
-            for entry in all_users:
+            for entry in all_user_data:
                 if entry.finish_time is not None and entry.start_time is not None:
                     delta = entry.finish_time - entry.start_time
                     aux.append(delta)    
                 
-            for i in range (len (aux)): 
+            for i in range(len(aux)):  
                 total_impact_time = total_impact_time + aux[i]
-            print (type(entry.liters))
-            total_impact_liters = sum(int(entry.liters) for entry in all_users if entry.liters is not None)
-           
+            total_impact_liters = sum(int(entry.liters) for entry in all_user_data if entry.liters is not None)
+
         return jsonify({
             "message": "Sandsmile impact",
-            "total_users": total_users, 
-            "total_impact_time": str (total_impact_time).split(".")[0],
+            "total_users": total_users,   
+            "total_impact_time": str(total_impact_time).split(".")[0],
             "total_impact_liters": total_impact_liters,
-
-        }), 200
+        }),  200
     except Exception as e:
         db.session.rollback()
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": str(e)}),  500
     finally:
-        db.session.close()        
+        db.session.close()
+
+
 
 @api.route('/admin', methods=['PUT'])
 def promote_user():
@@ -318,12 +310,14 @@ def create_event():
 
     return jsonify({"msg": "Event created"}), 201
 
+
 @api.route('/events', methods=['GET'])
 def get_event():
     event = Event.query.order_by(Event.id.desc()).first()
     if event is None:
         return jsonify({"message": "No events found"}), 404
     return jsonify(event.serialize())
+
 
 @api.route('/events', methods=['DELETE'])
 def delete_all_events():
@@ -332,6 +326,7 @@ def delete_all_events():
         db.session.delete(event)
     db.session.commit()
     return jsonify({"message": "All events were successfully deleted."})
+
 
 @api.route("/clickupdate", methods=["PUT"])
 def UpdateClicksCounter():
@@ -354,10 +349,12 @@ def UpdateClicksCounter():
 
     return jsonify ({"message": "Clicks counter updated successfully"}), 200
 
+
 @api.route("/clicks", methods=["GET"])
 def UShowClicksCounter():
     event = Event.query.order_by(Event.id.desc()).first()
     return jsonify(event.clicks_counter)
+
      
 @api.route('/userslevel', methods=['GET'])
 @jwt_required()
@@ -390,6 +387,7 @@ def stripe_link_integration():
     else:
        
         return jsonify({"error": "User not found"}),  404
+    
 
 @api.route('/usersstripelink', methods=['GET'])
 @jwt_required()
@@ -407,3 +405,5 @@ def handle_get_stripe_kink():
         return jsonify({"stripe_link_integration": user.stripe_link_integration}), 200
     except Exception as e:
         return jsonify({"msg": str(e)}), 500
+    
+

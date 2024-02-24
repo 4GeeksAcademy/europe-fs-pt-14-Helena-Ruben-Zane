@@ -10,16 +10,13 @@ export const SubmitButton = () => {
     const handleSubmit = async () => {
 
         try {
-            actions.setLiters;
-            actions.setLocation;
 
-            if (store.start_time && store.finish_time &&  store.location && store.liters){
+            if (store.manual_start_time && store.manual_finish_time &&  store.location && store.liters){
                 actions.submit_manual_data();
                 
-            } else { 
-                await actions.submitData(
-
-                );
+            } 
+            if  (store.start_time && store.finish_time &&  store.location && store.liters){
+                actions.submitData();
             }
             
            
@@ -31,9 +28,10 @@ export const SubmitButton = () => {
     };
 
     return (
-        <button type="button" className="counter-submit-button" disabled={!active} onClick={handleSubmit}>
+        <button type="button" className="user-location-button btn btn-success btn-sm" disabled={!active} onClick={handleSubmit}>
             SUBMIT 
         </button>
     );
    
 }; 
+ 

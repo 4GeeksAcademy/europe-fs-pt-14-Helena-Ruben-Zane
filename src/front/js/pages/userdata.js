@@ -2,15 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { EventInfoBox } from '../component/eventInfoBox';
 import { useNavigate } from 'react-router-dom'
 import { TimeCounter } from '../component/timeCounter';
-
-import { UserInsertData } from '../component/userInsertData';
 import { UserLevelConnectLink } from '../component/userLevelConectLink';
-
-import { InsertData } from '../component/insertData';
 import { InsertLocationLiters } from '../component/inserLocationLiters';
 import { SubmitButton } from '../component/submitButton';
 import { ShowUserImpact } from '../component/showUserImpact';
-
 import { NavBar } from "../component/navbar";
 import userdata_background from "../../img/userdata_background.jpg";
 
@@ -41,11 +36,11 @@ export const Userdata = () => {
 
   return (
 
-    <div className="user-data-page">
-      <img className="hero__image" src={userdata_background} />
+    <div>
       <NavBar />
-      <div className="user-data-container">
-        <div className="user-data-page-sides d-flex row flex-sm-column">
+      <div className="hero ">
+        <img className="hero__image" src={userdata_background} />
+        <div className='user-data-group-box'>
           <div className="user-data-page-left">
             <UserLevelConnectLink />
             <div className="user-impact-data">
@@ -55,14 +50,15 @@ export const Userdata = () => {
           </div>
           <div className="user-data-page-right">
             <TimeCounter />
-            <InsertData />
-            <InsertLocationLiters />
-            <SubmitButton />
+            <div className="user-location-group">
+              <InsertLocationLiters />
+              <SubmitButton />
+            </div>
           </div>
         </div>
-        <div className="user-data-events">
-          <EventInfoBox />
-        </div>
+      </div>
+      <div>
+        <EventInfoBox />
       </div>
     </div>
   )

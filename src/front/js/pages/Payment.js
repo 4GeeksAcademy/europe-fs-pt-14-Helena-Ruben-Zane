@@ -51,7 +51,7 @@ export const Payment = () => {
           <div className="hero">
 				    <img className="hero__image" src={Image4} />
               <div className="container donate-box ">
-                <h><strong>JOIN THE CLEANUP!</strong></h>
+                <h5><strong>JOIN THE CLEANUP!</strong></h5>
                 <p>Please enter the amount in <strong>euros</strong> you wish to donate to our cause</p>
                 <AmountSubmit setParentAmount={setAmount} /> {}
                 {clientSecret && stripePromise && (
